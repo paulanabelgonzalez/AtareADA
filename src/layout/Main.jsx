@@ -7,10 +7,11 @@ export const Main = () => {
 	return (
 		<Box
 			as="main"
-			sx={{ background: "linear-gradient(to bottom, #ffe0dd , white)" }}
+			sx={{ background: "linear-gradient(to bottom, #ffceca , white)" }}
 		>
 			<Form />
 			<List />
 		</Box>
 	);
 };
+//#ffe0dd

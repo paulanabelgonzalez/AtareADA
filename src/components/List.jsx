@@ -29,6 +29,7 @@ const CheckTooltip = createStyledTooltip("#4caf50");
 const CheckedTooltip = createStyledTooltip("#d32f2f");
 const EditTooltip = createStyledTooltip("#3434ff");
 const DeleteTooltip = createStyledTooltip("#d32f2f");
+const DescriptionTooltip = createStyledTooltip("grey");
 
 export const List = () => {
 	return (
@@ -38,33 +39,45 @@ export const List = () => {
 				maxWidth: "1200px",
 				m: "auto",
 				p: "0px 10px",
-				display: "flex",
-				justifyContent: "space-between",
+				// display: "flex",
+				// justifyContent: "space-between",
 				boxShadow:
 					"0 10px 20px rgba(0, 0, 0, 0.4), 0 14px 40px rgba(0, 0, 0, 0.4)",
 				borderRadius: "15px",
 			}}
 		>
-			<Typography sx={{ display: "flex", alignItems: "center" }}>
-				Tarea de ejemplo
-			</Typography>
-			<Stack direction="row" spacing={2}>
-				<CheckTooltip title="Marcar como realizada">
-					<IconButton sx={{ color: "#4caf50" }}>
-						<FaCheck />
-					</IconButton>
-				</CheckTooltip>
-				<EditTooltip title="Editar">
-					<IconButton sx={{ color: "#3434ff" }}>
-						<FaRegEdit />
-					</IconButton>
-				</EditTooltip>
-				<DeleteTooltip title="Eliminar">
-					<IconButton color="error">
-						<RiDeleteBin6Line />
-					</IconButton>
-				</DeleteTooltip>
-			</Stack>
+			<Box sx={{ display: "flex", justifyContent: "space-between" }}>
+				<Typography sx={{ display: "flex", alignItems: "center" }}>
+					Tarea de ejemplo
+				</Typography>
+				<Stack
+					direction="row"
+					spacing={{ xs: 0, md: 2 }}
+					sx={{ gap: { xs: "" } }}
+				>
+					<CheckTooltip title="Marcar como realizada">
+						<IconButton sx={{ color: "#4caf50" }}>
+							<FaCheck />
+						</IconButton>
+					</CheckTooltip>
+					<EditTooltip title="Editar">
+						<IconButton sx={{ color: "#3434ff" }}>
+							<FaRegEdit />
+						</IconButton>
+					</EditTooltip>
+					<DeleteTooltip title="Eliminar">
+						<IconButton color="error">
+							<RiDeleteBin6Line />
+						</IconButton>
+					</DeleteTooltip>
+					{/* <DescriptionTooltip title="Agregar Descripción">
+						<Button sx={{ padding: 0, fontSize: ".7rem", color: "#e79ea2" }}>
+							{" "}
+							descripción
+						</Button>
+					</DescriptionTooltip> */}
+				</Stack>
+			</Box>
 		</Box>
 	);
 };
