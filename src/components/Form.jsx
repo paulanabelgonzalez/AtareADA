@@ -1,12 +1,9 @@
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 import { Box, Button, TextField } from "@mui/material";
-import { getAddedTasks, setTasksLS } from "../LocalStorage";
 
-export const Form = () => {
+export const Form = ({ addTask }) => {
 	const { register, handleSubmit } = useForm();
-	const [tasks, setTasks] = useState(getAddedTasks());
 
 	const onSubmit = (data) => {
 		console.log(data);
@@ -16,12 +13,9 @@ export const Form = () => {
 			completed: false,
 			description: data.description,
 		};
-
-		const updatedTasks = [...tasks, newTask];
-		setTasks(updatedTasks);
-		setTasksLS(updatedTasks);
+		addTask(newTask);
+		console.log(newTask);
 	};
-	console.log(tasks);
 
 	return (
 		<Box

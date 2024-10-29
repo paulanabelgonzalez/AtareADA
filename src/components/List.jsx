@@ -31,7 +31,8 @@ const EditTooltip = createStyledTooltip("#3434ff");
 const DeleteTooltip = createStyledTooltip("#d32f2f");
 const DescriptionTooltip = createStyledTooltip("grey");
 
-export const List = () => {
+export const List = ({ tasks }) => {
+	console.log(tasks);
 	return (
 		<Box
 			sx={{
@@ -75,6 +76,13 @@ export const List = () => {
 						</Button>
 					</DescriptionTooltip> */}
 				</Stack>
+			</Box>
+			<Box>
+				{tasks.map((task) => (
+					<Box key={task.id}>
+						<Typography>{task.task}</Typography>
+					</Box>
+				))}
 			</Box>
 		</Box>
 	);
