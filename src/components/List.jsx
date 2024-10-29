@@ -55,7 +55,13 @@ export const List = () => {
 			}}
 		>
 			{hasTask ? (
-				<Box sx={{ display: "flex", justifyContent: "space-between" }}>
+				<Box
+					sx={{
+						display: "flex",
+						justifyContent: "space-between",
+						paddingBlock: 1,
+					}}
+				>
 					<Typography sx={{ display: "flex", alignItems: "center" }}>
 						Tarea de ejemplo
 					</Typography>
@@ -66,17 +72,17 @@ export const List = () => {
 					>
 						<CheckTooltip title="Marcar como realizada">
 							<IconButton sx={{ color: "#4caf50" }}>
-								<FaCheck />
+								<FaCheck style={{ fontSize: "20px" }} />
 							</IconButton>
 						</CheckTooltip>
 						<EditTooltip title="Editar">
 							<IconButton sx={{ color: "#3434ff" }}>
-								<FaRegEdit />
+								<FaRegEdit style={{ fontSize: "20px" }} />
 							</IconButton>
 						</EditTooltip>
 						<DeleteTooltip title="Eliminar">
 							<IconButton color="error">
-								<RiDeleteBin6Line />
+								<RiDeleteBin6Line style={{ fontSize: "20px" }} />
 							</IconButton>
 						</DeleteTooltip>
 						{/* <DescriptionTooltip title="Agregar Descripción">

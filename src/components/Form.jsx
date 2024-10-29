@@ -35,7 +35,7 @@ export const Form = () => {
 				display: "flex",
 				justifyContent: "center",
 				gap: "15px",
-				paddingBlock: "40px",
+				paddingBlock: "40px 10px",
 			}}
 		>
 			<TextField
@@ -62,14 +62,13 @@ export const Form = () => {
 				variant="outlined"
 				type="submit"
 				sx={{
-					color: "#e79ea2",
-					border: "2px solid #9B3522",
+					color: "#9B3522",
+					border: "2px solid #e79ea2",
 					fontWeight: 600,
 					transition: "0.5s ease",
 					"&:hover": {
 						backgroundColor: "#e79ea2",
-						color: "#9B3522",
-						border: "2px solid #e79ea2",
+						color: "#ffe0dd",
 					},
 				}}
 			>
