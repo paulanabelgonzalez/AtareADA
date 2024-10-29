@@ -39,8 +39,6 @@ export const List = () => {
 				maxWidth: "1200px",
 				m: "auto",
 				p: "0px 10px",
-				// display: "flex",
-				// justifyContent: "space-between",
 				boxShadow:
 					"0 10px 20px rgba(0, 0, 0, 0.4), 0 14px 40px rgba(0, 0, 0, 0.4)",
 				borderRadius: "15px",
