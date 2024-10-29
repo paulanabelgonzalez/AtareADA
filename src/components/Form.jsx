@@ -1,19 +1,27 @@
+import { useContext } from "react";
+
 import { useForm } from "react-hook-form";
+
 import { v4 as uuidv4 } from "uuid";
+
 import { Box, Button, TextField } from "@mui/material";
 
-export const Form = ({ addTask }) => {
-	const { register, handleSubmit } = useForm();
+import { TaskContext } from "../context/TaskContext";
+
+export const Form = () => {
+	const { addTask } = useContext(TaskContext);
+	const { handleSubmit, register, reset } = useForm();
 
 	const onSubmit = (data) => {
 		console.log(data);
 		const newTask = {
 			id: uuidv4(),
-			task: data.task,
+			task: data.task.charAt(0).toUpperCase() + data.task.slice(1),
 			completed: false,
-			description: data.description,
+			// description: data.description,
 		};
 		addTask(newTask);
+		reset();
 		console.log(newTask);
 	};
 
@@ -33,7 +41,12 @@ export const Form = ({ addTask }) => {
 			<TextField
 				type="text"
 				placeholder="Ingresa una tarea"
-				sx={{ minWidth: "50%" }}
+				sx={{
+					minWidth: "50%",
+					"& input": {
+						textTransform: "capitalize",
+					},
+				}}
 				variant="outlined"
 				{...register("task")}
 				InputProps={{
