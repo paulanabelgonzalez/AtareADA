@@ -1,3 +1,5 @@
+import { useContext } from "react";
+
 import {
 	Box,
 	Button,
@@ -14,7 +16,6 @@ import { FaRegEdit } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
 import { TaskContext } from "../context/TaskContext";
-import { useContext } from "react";
 
 const createStyledTooltip = (bgColor) =>
 	styled(({ className, ...props }) => (
@@ -35,7 +36,7 @@ const DeleteTooltip = createStyledTooltip("#d32f2f");
 const DescriptionTooltip = createStyledTooltip("grey");
 
 export const List = () => {
-	const { tasks } = useContext(TaskContext);
+	const { handleDeleteTask, tasks } = useContext(TaskContext);
 
 	console.log(tasks);
 
@@ -115,7 +116,12 @@ export const List = () => {
 								</IconButton>
 							</EditTooltip>
 							<DeleteTooltip title="Eliminar">
-								<IconButton color="error">
+								<IconButton
+									color="error"
+									onClick={() => {
+										handleDeleteTask(task.id);
+									}}
+								>
 									<RiDeleteBin6Line />
 								</IconButton>
 							</DeleteTooltip>
