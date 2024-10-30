@@ -36,75 +36,49 @@ const DeleteTooltip = createStyledTooltip("#d32f2f");
 const DescriptionTooltip = createStyledTooltip("grey");
 
 export const List = () => {
-	const { handleDeleteTask, tasks } = useContext(TaskContext);
+	const { handleDeleteAll, handleDeleteTask, tasks } = useContext(TaskContext);
 
 	console.log(tasks);
 
 	const hasTask = tasks?.length === 0;
 
 	return (
-		<Box
-			sx={{
-				width: "95%",
-				maxWidth: "1200px",
-				m: "auto",
-				p: "0px 10px",
-				boxShadow:
-					"0 10px 20px rgba(0, 0, 0, 0.4), 0 14px 40px rgba(0, 0, 0, 0.4)",
-				borderRadius: "15px",
-			}}
-		>
-			{hasTask ? (
-				<Box
+		<Box sx={{ width: "95%", maxWidth: "1200px", m: "auto" }}>
+			<Box sx={{ textAlign: "end", padding: 1 }}>
+				<Button
+					onClick={handleDeleteAll}
 					sx={{
-						display: "flex",
-						justifyContent: "space-between",
-						paddingBlock: 1,
+						padding: 1,
+						fontSize: ".6rem",
+						color: "#9B3522",
+						transition: "0.5s ease",
+						"&:hover": { backgroundColor: "#e79ea2", color: "#ffe0dd" },
 					}}
 				>
-					<Typography sx={{ display: "flex", alignItems: "center" }}>
-						Tarea de ejemplo
-					</Typography>
-					<Stack
-						direction="row"
-						spacing={{ xs: 0, md: 2 }}
-						sx={{ gap: { xs: "" } }}
-					>
-						<CheckTooltip title="Marcar como realizada">
-							<IconButton sx={{ color: "#4caf50" }}>
-								<FaCheck style={{ fontSize: "20px" }} />
-							</IconButton>
-						</CheckTooltip>
-						<EditTooltip title="Editar">
-							<IconButton sx={{ color: "#3434ff" }}>
-								<FaRegEdit style={{ fontSize: "20px" }} />
-							</IconButton>
-						</EditTooltip>
-						<DeleteTooltip title="Eliminar">
-							<IconButton color="error">
-								<RiDeleteBin6Line style={{ fontSize: "20px" }} />
-							</IconButton>
-						</DeleteTooltip>
-						{/* <DescriptionTooltip title="Agregar Descripción">
-						<Button sx={{ padding: 0, fontSize: ".7rem", color: "#e79ea2" }}>
-							{" "}
-							descripción
-						</Button>
-					</DescriptionTooltip> */}
-					</Stack>
-				</Box>
-			) : (
-				tasks.map((task) => (
+					Borrar Lista
+				</Button>
+			</Box>
+			<Box
+				sx={{
+					width: "100%",
+					maxWidth: "1200px",
+					m: "auto",
+					p: "0px 10px",
+					boxShadow:
+						"0 10px 20px rgba(0, 0, 0, 0.4), 0 14px 40px rgba(0, 0, 0, 0.4)",
+					borderRadius: "15px",
+				}}
+			>
+				{hasTask ? (
 					<Box
-						key={task.id}
 						sx={{
 							display: "flex",
 							justifyContent: "space-between",
-							padding: "10px",
+							paddingBlock: 1,
 						}}
 					>
 						<Typography sx={{ display: "flex", alignItems: "center" }}>
-							{task.task}
+							Tarea de ejemplo
 						</Typography>
 						<Stack
 							direction="row"
@@ -113,22 +87,17 @@ export const List = () => {
 						>
 							<CheckTooltip title="Marcar como realizada">
 								<IconButton sx={{ color: "#4caf50" }}>
-									<FaCheck />
+									<FaCheck style={{ fontSize: "20px" }} />
 								</IconButton>
 							</CheckTooltip>
 							<EditTooltip title="Editar">
 								<IconButton sx={{ color: "#3434ff" }}>
-									<FaRegEdit />
+									<FaRegEdit style={{ fontSize: "20px" }} />
 								</IconButton>
 							</EditTooltip>
 							<DeleteTooltip title="Eliminar">
-								<IconButton
-									color="error"
-									onClick={() => {
-										handleDeleteTask(task.id);
-									}}
-								>
-									<RiDeleteBin6Line />
+								<IconButton color="error">
+									<RiDeleteBin6Line style={{ fontSize: "20px" }} />
 								</IconButton>
 							</DeleteTooltip>
 							{/* <DescriptionTooltip title="Agregar Descripción">
@@ -139,8 +108,55 @@ export const List = () => {
 					</DescriptionTooltip> */}
 						</Stack>
 					</Box>
-				))
-			)}
+				) : (
+					tasks.map((task) => (
+						<Box
+							key={task.id}
+							sx={{
+								display: "flex",
+								justifyContent: "space-between",
+								padding: "10px",
+							}}
+						>
+							<Typography sx={{ display: "flex", alignItems: "center" }}>
+								{task.task}
+							</Typography>
+							<Stack
+								direction="row"
+								spacing={{ xs: 0, md: 2 }}
+								sx={{ gap: { xs: "" } }}
+							>
+								<CheckTooltip title="Marcar como realizada">
+									<IconButton sx={{ color: "#4caf50" }}>
+										<FaCheck />
+									</IconButton>
+								</CheckTooltip>
+								<EditTooltip title="Editar">
+									<IconButton sx={{ color: "#3434ff" }}>
+										<FaRegEdit />
+									</IconButton>
+								</EditTooltip>
+								<DeleteTooltip title="Eliminar">
+									<IconButton
+										color="error"
+										onClick={() => {
+											handleDeleteTask(task.id);
+										}}
+									>
+										<RiDeleteBin6Line />
+									</IconButton>
+								</DeleteTooltip>
+								{/* <DescriptionTooltip title="Agregar Descripción">
+						<Button sx={{ padding: 0, fontSize: ".7rem", color: "#e79ea2" }}>
+							{" "}
+							descripción
+						</Button>
+					</DescriptionTooltip> */}
+							</Stack>
+						</Box>
+					))
+				)}
+			</Box>
 		</Box>
 	);
 };
