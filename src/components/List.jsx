@@ -61,12 +61,18 @@ const Puller = styled("div")({
 });
 
 export const List = () => {
-	const { handleDeleteAll, handleDeleteTask, replaceTask, tasks } =
-		useContext(TaskContext);
+	const {
+		findByTaskId,
+		handleDeleteAll,
+		handleDeleteTask,
+		handleTaskCompleted,
+		tasks,
+		updateTaskAttribute,
+	} = useContext(TaskContext);
 	const { handleSubmit, register, setValue, reset } = useForm();
 
 	const [open, setOpen] = useState(false);
-	const [editedTask, setEditedTask] = useState(null);
+	const [selectedTaskId, setSelectedTaskId] = useState(null);
 
 	const toggleDrawer = (newOpen) => () => {
 		setOpen(newOpen);
@@ -74,32 +80,26 @@ export const List = () => {
 
 	const handleEditClick = (taskId) => {
 		setOpen(true);
-		setEditedTask(taskId);
+		setSelectedTaskId(taskId);
 	};
-	console.log(editedTask);
+	console.log(selectedTaskId);
+
+	// const findByTaskId = (taskId) => tasks.find((task) => task.id === taskId);
 
 	useEffect(() => {
-		if (editedTask) {
-			const taskToEdit = tasks.find((task) => task.id === editedTask);
+		if (selectedTaskId) {
+			const taskToEdit = findByTaskId(selectedTaskId);
 			if (taskToEdit) {
 				setValue("task", taskToEdit.task);
 			}
 		}
-	}, [editedTask, setValue, tasks]);
+	}, [selectedTaskId, setValue, tasks]);
 
 	const onSubmit = (data) => {
 		console.log(data);
-		const taskToUpdate = tasks.find((task) => task.id === editedTask);
-
-		if (taskToUpdate) {
-			const updatedTask = {
-				...taskToUpdate,
-				task: data.task.charAt(0).toUpperCase() + data.task.slice(1),
-			};
-			replaceTask(updatedTask);
-			console.log(updatedTask);
-		}
-
+		const capitalizedTask =
+			data.task.charAt(0).toUpperCase() + data.task.slice(1);
+		updateTaskAttribute(selectedTaskId, "task", capitalizedTask);
 		reset();
 		setOpen(false);
 	};
@@ -135,6 +135,7 @@ export const List = () => {
 			>
 				{hasTask ? (
 					<Box
+						key="example-task"
 						sx={{
 							display: "flex",
 							justifyContent: "space-between",
@@ -173,9 +174,9 @@ export const List = () => {
 						</Stack>
 					</Box>
 				) : (
-					tasks.map((task) => (
+					tasks.map((task, index) => (
 						<Box
-							key={task.id}
+							key={task.id || index}
 							sx={{
 								display: "flex",
 								justifyContent: "space-between",
@@ -191,8 +192,11 @@ export const List = () => {
 								sx={{ gap: { xs: "" } }}
 							>
 								<CheckTooltip title="Marcar como realizada">
-									<IconButton sx={{ color: "#4caf50" }}>
-										<FaCheck />
+									<IconButton
+										onClick={() => handleTaskCompleted(task.id)}
+										sx={{ color: "#4caf50" }}
+									>
+										<FaCheck style={{ fontSize: "20px" }} />
 									</IconButton>
 								</CheckTooltip>
 								<EditTooltip title="Editar">
@@ -200,7 +204,7 @@ export const List = () => {
 										onClick={() => handleEditClick(task.id)}
 										sx={{ color: "#3434ff" }}
 									>
-										<FaRegEdit />
+										<FaRegEdit style={{ fontSize: "20px" }} />
 									</IconButton>
 								</EditTooltip>
 								<DeleteTooltip title="Eliminar">
@@ -210,7 +214,7 @@ export const List = () => {
 											handleDeleteTask(task.id);
 										}}
 									>
-										<RiDeleteBin6Line />
+										<RiDeleteBin6Line style={{ fontSize: "20px" }} />
 									</IconButton>
 								</DeleteTooltip>
 								{/* <DescriptionTooltip title="Agregar Descripción">
@@ -254,7 +258,9 @@ export const List = () => {
 					<Puller />
 				</StyledBox>
 				<StyledBox sx={{ p: 2, height: "100%", overflow: "auto" }}>
-					<Typography variant="h6">Editar Tarea</Typography>
+					<Typography variant="h6" sx={{ color: "#9B3522" }}>
+						Editar Tarea
+					</Typography>
 					<Box
 						as="form"
 						onSubmit={handleSubmit(onSubmit)}
@@ -287,7 +293,15 @@ export const List = () => {
 								},
 							}}
 						/>
-						<Button type="submit" sx={{}}>
+						<Button
+							type="submit"
+							sx={{
+								color: "#e79ea2",
+								fontWeight: 600,
+								transition: "0.5s ease",
+								"&:hover": { color: "white", backgroundColor: "#e79ea2" },
+							}}
+						>
 							Guardar
 						</Button>
 					</Box>
