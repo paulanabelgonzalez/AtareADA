@@ -39,10 +39,6 @@ export const TaskProvider = ({ children }) => {
 	};
 
 	const handleTaskCompleted = (selectedTaskId) => {
-		// updateTaskAttribute(selectedTaskId, "completed", true);
-		// handleDeleteTask(selectedTaskId);
-		// const uploadCompletedTask = tasks.map((task) => task.completed === true);
-		// setTasks(uploadCompletedTask);
 		const taskToComplete = findByTaskId(selectedTaskId);
 		if (taskToComplete) {
 			const updatedTask = { ...taskToComplete, completed: true };

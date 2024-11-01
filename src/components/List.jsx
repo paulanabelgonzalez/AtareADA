@@ -20,6 +20,7 @@ import { Global } from "@emotion/react";
 import { FaCheck } from "react-icons/fa6";
 import { FaRegEdit } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { SiListmonk } from "react-icons/si";
 
 import { TaskContext } from "../context/TaskContext";
 
@@ -84,8 +85,6 @@ export const List = () => {
 	};
 	console.log(selectedTaskId);
 
-	// const findByTaskId = (taskId) => tasks.find((task) => task.id === taskId);
-
 	useEffect(() => {
 		if (selectedTaskId) {
 			const taskToEdit = findByTaskId(selectedTaskId);
@@ -143,24 +142,29 @@ export const List = () => {
 						}}
 					>
 						<Typography sx={{ display: "flex", alignItems: "center" }}>
-							Tarea de ejemplo
+							<span>
+								<SiListmonk style={{ fontSize: ".6rem" }} />
+							</span>
+							<span style={{ marginInlineStart: "15px" }}>
+								Tarea de ejemplo
+							</span>
 						</Typography>
 						<Stack
 							direction="row"
 							spacing={{ xs: 0, md: 2 }}
 							sx={{ gap: { xs: "" } }}
 						>
-							<CheckTooltip title="Marcar como realizada">
+							<CheckTooltip title="Ingresa una tarea">
 								<IconButton sx={{ color: "#4caf50" }}>
 									<FaCheck style={{ fontSize: "20px" }} />
 								</IconButton>
 							</CheckTooltip>
-							<EditTooltip title="Editar">
+							<EditTooltip title="Ingresa una tarea">
 								<IconButton sx={{ color: "#3434ff" }}>
 									<FaRegEdit style={{ fontSize: "20px" }} />
 								</IconButton>
 							</EditTooltip>
-							<DeleteTooltip title="Eliminar">
+							<DeleteTooltip title="Ingresa una tarea">
 								<IconButton color="error">
 									<RiDeleteBin6Line style={{ fontSize: "20px" }} />
 								</IconButton>
@@ -184,7 +188,11 @@ export const List = () => {
 							}}
 						>
 							<Typography sx={{ display: "flex", alignItems: "center" }}>
-								{task.task}
+								{/* {task.task} */}
+								<span>
+									<SiListmonk style={{ fontSize: ".6rem" }} />
+								</span>
+								<span style={{ marginInlineStart: "15px" }}>{task.task}</span>
 							</Typography>
 							<Stack
 								direction="row"
