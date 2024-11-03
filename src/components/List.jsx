@@ -21,6 +21,7 @@ import { FaCheck } from "react-icons/fa6";
 import { FaRegEdit } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { SiListmonk } from "react-icons/si";
+import { TbPointFilled } from "react-icons/tb";
 
 import { TaskContext } from "../context/TaskContext";
 
@@ -67,6 +68,7 @@ export const List = () => {
 		handleDeleteAll,
 		handleDeleteTask,
 		handleTaskCompleted,
+		showBubble,
 		tasks,
 		updateTaskAttribute,
 	} = useContext(TaskContext);
@@ -123,7 +125,9 @@ export const List = () => {
 			</Box>
 			<Box
 				sx={{
-					width: "100%",
+					position: "sticky", //por ahora, preguntarle a aldi como pasarlo a fixed
+					minWidth: { xs: "96%" },
+					width: { lg: "1200px" },
 					maxWidth: "1200px",
 					m: "auto",
 					p: "0px 10px",
@@ -138,15 +142,23 @@ export const List = () => {
 						sx={{
 							display: "flex",
 							justifyContent: "space-between",
-							paddingBlock: 1,
+							padding: "10px",
 						}}
 					>
 						<Typography sx={{ display: "flex", alignItems: "center" }}>
-							<span>
-								<SiListmonk style={{ fontSize: ".6rem" }} />
+							<span style={{ display: "flex" }}>
+								<TbPointFilled
+									style={{ fontSize: "1.5rem", color: "#9b3522" }}
+								/>
 							</span>
-							<span style={{ marginInlineStart: "15px" }}>
-								Tarea de ejemplo
+							<span
+								style={{
+									marginInlineStart: "15px",
+									fontWeight: 600,
+									color: "#615e5e",
+								}}
+							>
+								Ejemplo
 							</span>
 						</Typography>
 						<Stack
@@ -188,11 +200,17 @@ export const List = () => {
 							}}
 						>
 							<Typography sx={{ display: "flex", alignItems: "center" }}>
-								{/* {task.task} */}
-								<span>
-									<SiListmonk style={{ fontSize: ".6rem" }} />
+								<span style={{ display: "flex" }}>
+									<TbPointFilled
+										style={{ fontSize: "1.5rem", color: "#9b3522" }}
+									/>{" "}
 								</span>
-								<span style={{ marginInlineStart: "15px" }}>{task.task}</span>
+								<span
+									className={`task-text ${task.completed ? "completed" : ""}`}
+									style={{ marginInlineStart: "15px", color: "#615e5e" }}
+								>
+									{task.task}
+								</span>
 							</Typography>
 							<Stack
 								direction="row"
@@ -200,12 +218,16 @@ export const List = () => {
 								sx={{ gap: { xs: "" } }}
 							>
 								<CheckTooltip title="Marcar como realizada">
-									<IconButton
-										onClick={() => handleTaskCompleted(task.id)}
-										sx={{ color: "#4caf50" }}
-									>
-										<FaCheck style={{ fontSize: "20px" }} />
-									</IconButton>
+									<Box>
+										<Box className="button">
+											<IconButton
+												onClick={() => handleTaskCompleted(task.id)}
+												sx={{ color: "#4caf50" }}
+											>
+												<FaCheck style={{ fontSize: "20px" }} />
+											</IconButton>
+										</Box>
+									</Box>
 								</CheckTooltip>
 								<EditTooltip title="Editar">
 									<IconButton
@@ -235,6 +257,9 @@ export const List = () => {
 						</Box>
 					))
 				)}
+			</Box>
+			<Box>
+				{showBubble && <Box className="task-completed">Realizada.</Box>}
 			</Box>
 			<Global
 				styles={{

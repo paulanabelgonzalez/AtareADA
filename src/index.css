@@ -4,3 +4,73 @@ body,
 	height: 100%;
 	margin: 0;
 }
+
+.task-text {
+	font-size: 1rem;
+	color: black;
+	position: relative;
+	cursor: pointer;
+	transition: color 0.5s ease;
+}
+
+.task-text.completed {
+	color: rgba(0, 0, 0, 0.5);
+}
+
+.task-text::after {
+	content: "";
+	position: absolute;
+	left: 0;
+	bottom: 38%;
+	height: 2px;
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	transform: scaleX(0);
+	transition: transform 0.5s ease;
+	transform-origin: left;
+}
+
+.task-text.completed::after {
+	transform: scaleX(1);
+}
+
+/* burbuja */
+.task-completed {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 125px;
+	height: 125px;
+	border-radius: 50%;
+	font-size: 18px;
+	border: none;
+	bottom: 100px;
+	left: 48%;
+	color: white;
+	transition: ease-in;
+	box-shadow: 0 25px 35px transparent, inset 0 15px 35px 6px #9b3522;
+	animation: animate 6s linear infinite, animate2 3s ease-in;
+}
+
+.view {
+	display: none;
+}
+
+@keyframes animate {
+	0% {
+		margin-top: 0;
+	}
+	100% {
+		margin-top: -170px;
+	}
+}
+
+@keyframes animate2 {
+	0% {
+		margin-left: 0;
+	}
+	100% {
+		margin-left: 70px;
+	}
+}

@@ -5,9 +5,9 @@ import { getAddedTasks, setTasksLS } from "../LocalStorage";
 export const TaskContext = createContext();
 
 export const TaskProvider = ({ children }) => {
-	const [tasks, setTasks] = useState(getAddedTasks());
-
 	const [completedTasks, setCompletedTasks] = useState([]);
+	const [showBubble, setShowBubble] = useState(false);
+	const [tasks, setTasks] = useState(getAddedTasks());
 
 	useEffect(() => {
 		setTasksLS(tasks);
@@ -38,14 +38,35 @@ export const TaskProvider = ({ children }) => {
 		setTasks(updatedTasks);
 	};
 
+	const handleBubbleShow = () => {
+		setShowBubble(true);
+		setTimeout(() => {
+			setShowBubble(false);
+		}, 2000);
+	};
+
 	const handleTaskCompleted = (selectedTaskId) => {
 		const taskToComplete = findByTaskId(selectedTaskId);
+
 		if (taskToComplete) {
-			const updatedTask = { ...taskToComplete, completed: true };
-			setTasks((prevTasks) =>
-				prevTasks.filter((task) => task.id !== selectedTaskId)
+			const updatedTasks = tasks.map((task) =>
+				task.id === selectedTaskId ? { ...task, completed: true } : task
 			);
-			setCompletedTasks((prevCompleted) => [...prevCompleted, updatedTask]);
+			setTasks(updatedTasks);
+
+			setTimeout(() => {
+				const taskWithCompletion = { ...taskToComplete, completed: true };
+				setCompletedTasks((prevCompleted) => [
+					...prevCompleted,
+					taskWithCompletion,
+				]);
+
+				setTasks((prevTasks) =>
+					prevTasks.filter((task) => task.id !== selectedTaskId)
+				);
+
+				handleBubbleShow();
+			}, 700);
 		}
 	};
 	console.log(completedTasks);
@@ -67,6 +88,7 @@ export const TaskProvider = ({ children }) => {
 				handleDeleteAll,
 				handleDeleteTask,
 				handleTaskCompleted,
+				showBubble,
 				tasks,
 				updateTaskAttribute,
 			}}
