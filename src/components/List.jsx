@@ -89,6 +89,7 @@ export const List = () => {
 	useEffect(() => {
 		if (selectedTaskId) {
 			const taskToEdit = findByTaskId(selectedTaskId);
+
 			if (taskToEdit) {
 				setValue("task", taskToEdit.task);
 			}
@@ -124,7 +125,7 @@ export const List = () => {
 			</Box>
 			<Box
 				sx={{
-					position: "sticky", //por ahora, preguntarle a aldi como pasarlo a fixed
+					position: "sticky",
 					minWidth: { xs: "96%" },
 					width: { lg: "1200px" },
 					maxWidth: "1200px",
@@ -150,6 +151,7 @@ export const List = () => {
 									style={{ fontSize: "1.5rem", color: "#9b3522" }}
 								/>
 							</span>
+
 							<span
 								style={{
 									marginInlineStart: "15px",
@@ -160,6 +162,7 @@ export const List = () => {
 								Ejemplo
 							</span>
 						</Typography>
+
 						<Stack
 							direction="row"
 							spacing={{ xs: 0, md: 2 }}
@@ -170,11 +173,13 @@ export const List = () => {
 									<FaCheck style={{ fontSize: "20px" }} />
 								</IconButton>
 							</CheckTooltip>
+
 							<EditTooltip title="Ingresa una tarea">
 								<IconButton sx={{ color: "#3434ff" }}>
 									<FaRegEdit style={{ fontSize: "20px" }} />
 								</IconButton>
 							</EditTooltip>
+
 							<DeleteTooltip title="Ingresa una tarea">
 								<IconButton color="error">
 									<RiDeleteBin6Line style={{ fontSize: "20px" }} />
@@ -202,8 +207,9 @@ export const List = () => {
 								<span style={{ display: "flex" }}>
 									<TbPointFilled
 										style={{ fontSize: "1.5rem", color: "#9b3522" }}
-									/>{" "}
+									/>
 								</span>
+
 								<span
 									className={`task-text ${task.completed ? "completed" : ""}`}
 									style={{ marginInlineStart: "15px", color: "#615e5e" }}
@@ -211,6 +217,7 @@ export const List = () => {
 									{task.task}
 								</span>
 							</Typography>
+
 							<Stack
 								direction="row"
 								spacing={{ xs: 0, md: 2 }}
@@ -228,6 +235,7 @@ export const List = () => {
 										</Box>
 									</Box>
 								</CheckTooltip>
+
 								<EditTooltip title="Editar">
 									<IconButton
 										onClick={() => handleEditClick(task.id)}
@@ -236,6 +244,7 @@ export const List = () => {
 										<FaRegEdit style={{ fontSize: "20px" }} />
 									</IconButton>
 								</EditTooltip>
+
 								<DeleteTooltip title="Eliminar">
 									<IconButton
 										color="error"
@@ -289,10 +298,12 @@ export const List = () => {
 				>
 					<Puller />
 				</StyledBox>
+
 				<StyledBox sx={{ p: 2, height: "100%", overflow: "auto" }}>
 					<Typography variant="h6" sx={{ color: "#9B3522" }}>
 						Editar Tarea
 					</Typography>
+
 					<Box
 						as="form"
 						onSubmit={handleSubmit(onSubmit)}
@@ -325,6 +336,7 @@ export const List = () => {
 								},
 							}}
 						/>
+
 						<Button
 							type="submit"
 							sx={{

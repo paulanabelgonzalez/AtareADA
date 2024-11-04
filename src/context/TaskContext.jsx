@@ -6,6 +6,7 @@ export const TaskContext = createContext();
 
 export const TaskProvider = ({ children }) => {
 	const [completedTasks, setCompletedTasks] = useState([]);
+	const [isRightDrawerOpen, setIsRightDrawerOpen] = useState(false);
 	const [showBubble, setShowBubble] = useState(false);
 	const [tasks, setTasks] = useState(getAddedTasks());
 
@@ -21,6 +22,7 @@ export const TaskProvider = ({ children }) => {
 
 	const updateTaskAttribute = (taskId, attribute, value) => {
 		const taskToUpdate = findByTaskId(taskId);
+
 		if (taskToUpdate) {
 			const updatedTask = {
 				...taskToUpdate,
@@ -40,6 +42,7 @@ export const TaskProvider = ({ children }) => {
 
 	const handleBubbleShow = () => {
 		setShowBubble(true);
+
 		setTimeout(() => {
 			setShowBubble(false);
 		}, 2000);
@@ -56,6 +59,7 @@ export const TaskProvider = ({ children }) => {
 
 			setTimeout(() => {
 				const taskWithCompletion = { ...taskToComplete, completed: true };
+
 				setCompletedTasks((prevCompleted) => [
 					...prevCompleted,
 					taskWithCompletion,
@@ -80,6 +84,16 @@ export const TaskProvider = ({ children }) => {
 		setTasks([]);
 	};
 
+	const toggleRightDrawer = (open) => (event) => {
+		if (
+			event.type === "keydown" &&
+			(event.key === "Tab" || event.key === "Shift")
+		) {
+			return;
+		}
+		setIsRightDrawerOpen(open);
+	};
+
 	return (
 		<TaskContext.Provider
 			value={{
@@ -88,8 +102,10 @@ export const TaskProvider = ({ children }) => {
 				handleDeleteAll,
 				handleDeleteTask,
 				handleTaskCompleted,
+				isRightDrawerOpen,
 				showBubble,
 				tasks,
+				toggleRightDrawer,
 				updateTaskAttribute,
 			}}
 		>
