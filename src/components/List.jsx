@@ -20,7 +20,6 @@ import { Global } from "@emotion/react";
 import { FaCheck } from "react-icons/fa6";
 import { FaRegEdit } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { SiListmonk } from "react-icons/si";
 import { TbPointFilled } from "react-icons/tb";
 
 import { TaskContext } from "../context/TaskContext";
