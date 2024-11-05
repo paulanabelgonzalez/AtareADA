@@ -6,8 +6,10 @@ export const TaskContext = createContext();
 
 export const TaskProvider = ({ children }) => {
 	const [completedTasks, setCompletedTasks] = useState([]);
+	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 	const [isRightDrawerOpen, setIsRightDrawerOpen] = useState(false);
 	const [showBubble, setShowBubble] = useState(false);
+	const [selectedTaskId, setSelectedTaskId] = useState(null);
 	const [tasks, setTasks] = useState(getAddedTasks());
 
 	useEffect(() => {
@@ -84,6 +86,15 @@ export const TaskProvider = ({ children }) => {
 		setTasks([]);
 	};
 
+	const toggleDrawer = (newOpen) => () => {
+		setIsDrawerOpen(newOpen);
+	};
+
+	const handleEditClick = (taskId) => {
+		setSelectedTaskId(taskId);
+		setIsDrawerOpen(true);
+	};
+
 	const toggleRightDrawer = (open) => (event) => {
 		if (
 			event.type === "keydown" &&
@@ -101,10 +112,16 @@ export const TaskProvider = ({ children }) => {
 				findByTaskId,
 				handleDeleteAll,
 				handleDeleteTask,
+				handleEditClick,
 				handleTaskCompleted,
 				isRightDrawerOpen,
+				isDrawerOpen,
+				selectedTaskId,
+				setIsDrawerOpen,
+				setSelectedTaskId,
 				showBubble,
 				tasks,
+				toggleDrawer,
 				toggleRightDrawer,
 				updateTaskAttribute,
 			}}
