@@ -1,10 +1,16 @@
 import { createContext, useEffect, useState } from "react";
 
-import { getAddedTasks, setTasksLS } from "../LocalStorage";
+import {
+	getAllTasks,
+	getAddedTasks,
+	setAllTasksLS,
+	setTasksLS,
+} from "../LocalStorage";
 
 export const TaskContext = createContext();
 
 export const TaskProvider = ({ children }) => {
+	const [allTasks, setAllTasks] = useState(getAllTasks());
 	const [completedTasks, setCompletedTasks] = useState([]);
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 	const [isRightDrawerOpen, setIsRightDrawerOpen] = useState(false);
@@ -16,8 +22,15 @@ export const TaskProvider = ({ children }) => {
 		setTasksLS(tasks);
 	}, [tasks]);
 
+	useEffect(() => {
+		setAllTasksLS(allTasks);
+	}, [allTasks]);
+
+	console.log(allTasks);
+
 	const addTask = (newTask) => {
 		setTasks((tasks) => [...tasks, newTask]);
+		setAllTasks((allTasks) => [...allTasks, newTask]);
 	};
 
 	const findByTaskId = (taskId) => tasks.find((task) => task.id === taskId);
@@ -40,6 +53,10 @@ export const TaskProvider = ({ children }) => {
 			task.id === updatedTask.id ? updatedTask : task
 		);
 		setTasks(updatedTasks);
+
+		setAllTasks((allTasks) =>
+			allTasks.map((task) => (task.id === updatedTask.id ? updatedTask : task))
+		);
 	};
 
 	const handleBubbleShow = () => {
@@ -59,14 +76,13 @@ export const TaskProvider = ({ children }) => {
 			);
 			setTasks(updatedTasks);
 
+			setAllTasks((prevAllTasks) =>
+				prevAllTasks.map((task) =>
+					task.id === selectedTaskId ? { ...task, completed: true } : task
+				)
+			);
+
 			setTimeout(() => {
-				const taskWithCompletion = { ...taskToComplete, completed: true };
-
-				setCompletedTasks((prevCompleted) => [
-					...prevCompleted,
-					taskWithCompletion,
-				]);
-
 				setTasks((prevTasks) =>
 					prevTasks.filter((task) => task.id !== selectedTaskId)
 				);
@@ -75,15 +91,17 @@ export const TaskProvider = ({ children }) => {
 			}, 700);
 		}
 	};
-	console.log(completedTasks);
 
 	const handleDeleteTask = (taskId) => {
 		const updatedTasks = tasks.filter((task) => task.id !== taskId);
 		setTasks(updatedTasks);
+
+		setAllTasks((allTasks) => allTasks.filter((task) => task.id !== taskId));
 	};
 
 	const handleDeleteAll = () => {
 		setTasks([]);
+		setAllTasks([]);
 	};
 
 	const toggleDrawer = (newOpen) => () => {
