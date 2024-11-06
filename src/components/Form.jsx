@@ -13,7 +13,6 @@ export const Form = () => {
 	const { handleSubmit, register, reset } = useForm();
 
 	const onSubmit = (data) => {
-		console.log(data);
 		const newTask = {
 			id: uuidv4(),
 			task: data.task.charAt(0).toUpperCase() + data.task.slice(1),
@@ -22,7 +21,6 @@ export const Form = () => {
 		};
 		addTask(newTask);
 		reset();
-		console.log(newTask);
 	};
 
 	return (

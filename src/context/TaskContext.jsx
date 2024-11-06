@@ -11,10 +11,13 @@ export const TaskContext = createContext();
 
 export const TaskProvider = ({ children }) => {
 	const [allTasks, setAllTasks] = useState(getAllTasks());
-	const [completedTasks, setCompletedTasks] = useState([]);
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+	//2
+	const [isFiltered, setIsFiltered] = useState(false);
 	const [isRightDrawerOpen, setIsRightDrawerOpen] = useState(false);
 	const [showBubble, setShowBubble] = useState(false);
+	//1
+	const [selectedTasks, setSelectedTasks] = useState(getAllTasks());
 	const [selectedTaskId, setSelectedTaskId] = useState(null);
 	const [tasks, setTasks] = useState(getAddedTasks());
 
@@ -26,7 +29,7 @@ export const TaskProvider = ({ children }) => {
 		setAllTasksLS(allTasks);
 	}, [allTasks]);
 
-	console.log(allTasks);
+	// console.log(allTasks);
 
 	const addTask = (newTask) => {
 		setTasks((tasks) => [...tasks, newTask]);
@@ -127,15 +130,20 @@ export const TaskProvider = ({ children }) => {
 		<TaskContext.Provider
 			value={{
 				addTask,
+				allTasks,
 				findByTaskId,
 				handleDeleteAll,
 				handleDeleteTask,
 				handleEditClick,
 				handleTaskCompleted,
-				isRightDrawerOpen,
 				isDrawerOpen,
+				isFiltered,
+				isRightDrawerOpen,
+				selectedTasks,
 				selectedTaskId,
 				setIsDrawerOpen,
+				setIsFiltered,
+				setSelectedTasks,
 				setSelectedTaskId,
 				showBubble,
 				tasks,

@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 import {
 	Box,
@@ -10,13 +10,35 @@ import {
 	Typography,
 } from "@mui/material";
 
+// import { getAllTasks } from "../LocalStorage";
+
 import { TaskContext } from "../context/TaskContext";
 
 export const DrawerRight = () => {
-	const { isRightDrawerOpen, toggleRightDrawer } = useContext(TaskContext);
+	const {
+		allTasks,
+		isFiltered,
+		isRightDrawerOpen,
+		selectedTasks,
+		setIsFiltered,
+		setSelectedTasks,
+		toggleRightDrawer,
+	} = useContext(TaskContext);
 
+	console.log(selectedTasks);
+	console.log(isFiltered);
 	const handleItemClick = (item) => {
-		console.log(`Elemento seleccionado: ${item}`);
+		setIsFiltered(true);
+		console.log(`${item}`);
+		if (item === "Todas las tareas") {
+			setSelectedTasks(allTasks);
+		}
+		if (item === "Tareas realizadas") {
+			setSelectedTasks(allTasks.filter((task) => task.completed === true));
+		}
+		if (item === "Tareas no realizadas") {
+			setIsFiltered(false);
+		}
 	};
 	return (
 		<>

@@ -7,9 +7,11 @@ import { Item } from "./Item";
 import { TaskContext } from "../context/TaskContext";
 
 export const List = () => {
-	const { handleDeleteAll, showBubble, tasks } = useContext(TaskContext);
+	const { handleDeleteAll, isFiltered, selectedTasks, showBubble, tasks } =
+		useContext(TaskContext);
 
-	const hasTask = tasks?.length === 0;
+	const displayedTasks = isFiltered ? selectedTasks : tasks;
+	const hasTask = displayedTasks?.length === 0;
 
 	return (
 		<Box sx={{ width: "95%", maxWidth: "1200px", m: "auto" }}>
@@ -41,9 +43,9 @@ export const List = () => {
 				}}
 			>
 				{hasTask ? (
-					<Item key="example-task" task={{ task: "Ejemplo" }} />
+					<Item key="example-task" task={{ task: "No hay tareas" }} />
 				) : (
-					tasks.map((task) => <Item key={task.id} task={task} />)
+					displayedTasks.map((task) => <Item key={task.id} task={task} />)
 				)}
 			</Box>
 			<Box>
