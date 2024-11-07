@@ -28,7 +28,7 @@ export const DrawerRight = () => {
 	} = useContext(TaskContext);
 
 	// console.log(selectedTasks);
-	console.log(isFiltered);
+	// console.log(isFiltered);
 	// console.log(item);
 
 	const handleItemClick = (item) => {
