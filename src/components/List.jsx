@@ -25,9 +25,6 @@ export const List = () => {
 				width: "95%",
 				maxWidth: "1200px",
 				m: "auto",
-				// maxHeight: "80%",
-				// overflowY: "auto",
-				// overflowX: "hidden",
 			}}
 		>
 			{isFiltered && (
@@ -43,7 +40,7 @@ export const List = () => {
 				</Typography>
 			)}
 
-			<Box sx={{ textAlign: "end", paddingBlock: { sm: 2 } }}>
+			<Box sx={{ textAlign: "end", paddingBlock: { xs: 1, sm: 2 } }}>
 				<Button
 					onClick={handleDeleteAll}
 					sx={{

@@ -14,7 +14,6 @@ export const TaskProvider = ({ children }) => {
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 	const [isFiltered, setIsFiltered] = useState(false);
 	const [isRightDrawerOpen, setIsRightDrawerOpen] = useState(false);
-	//1
 	const [item, setItem] = useState("");
 	const [showBubble, setShowBubble] = useState(false);
 	const [selectedTasks, setSelectedTasks] = useState(getAllTasks());
@@ -89,7 +88,7 @@ export const TaskProvider = ({ children }) => {
 				setTasks((prevTasks) =>
 					prevTasks.filter((task) => task.id !== selectedTaskId)
 				);
-				//
+
 				if (isFiltered && item === "Tareas no realizadas") {
 					setSelectedTasks((prevSelectedTasks) =>
 						prevSelectedTasks.filter((task) => task.id !== selectedTaskId)
@@ -106,11 +105,24 @@ export const TaskProvider = ({ children }) => {
 		setTasks(updatedTasks);
 
 		setAllTasks((allTasks) => allTasks.filter((task) => task.id !== taskId));
+
+		if (isFiltered) {
+			setSelectedTasks((selectedTasks) =>
+				selectedTasks.filter((task) => task.id !== taskId)
+			);
+		}
 	};
 
 	const handleDeleteAll = () => {
-		setTasks([]);
-		setAllTasks([]);
+		if (!isFiltered) {
+			setTasks([]);
+			setAllTasks([]);
+		}
+		if (isFiltered && item === "Todas las tareas") {
+			setSelectedTasks([]);
+			setTasks([]);
+			setAllTasks([]);
+		}
 	};
 
 	const toggleDrawer = (newOpen) => () => {
