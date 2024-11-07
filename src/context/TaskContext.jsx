@@ -28,8 +28,6 @@ export const TaskProvider = ({ children }) => {
 		setAllTasksLS(allTasks);
 	}, [allTasks]);
 
-	// console.log(allTasks);
-
 	const addTask = (newTask) => {
 		setTasks((tasks) => [...tasks, newTask]);
 		setAllTasks((allTasks) => [...allTasks, newTask]);
@@ -114,16 +112,29 @@ export const TaskProvider = ({ children }) => {
 	};
 
 	const handleDeleteAll = () => {
+		const taskCompleted = (array, boolean) =>
+			array.filter((task) => task.completed === boolean);
+
 		if (!isFiltered) {
 			setTasks([]);
 			setAllTasks([]);
-		}
-		if (isFiltered && item === "Todas las tareas") {
-			setSelectedTasks([]);
-			setTasks([]);
-			setAllTasks([]);
+		} else {
+			if (item === "Todas las tareas") {
+				setSelectedTasks([]);
+				setTasks([]);
+				setAllTasks([]);
+			} else if (item === "Tareas realizadas") {
+				setSelectedTasks(taskCompleted(selectedTasks, false));
+				setAllTasks(taskCompleted(allTasks, false));
+			} else {
+				setSelectedTasks(taskCompleted(selectedTasks, true));
+				setAllTasks(taskCompleted(allTasks, true));
+				setTasks([]);
+			}
 		}
 	};
+
+	// console.log(allTasks, selectedTasks);
 
 	const toggleDrawer = (newOpen) => () => {
 		setIsDrawerOpen(newOpen);

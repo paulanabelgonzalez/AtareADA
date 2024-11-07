@@ -27,9 +27,9 @@ export const DrawerRight = () => {
 		toggleRightDrawer,
 	} = useContext(TaskContext);
 
-	console.log(selectedTasks);
+	// console.log(selectedTasks);
 	console.log(isFiltered);
-	console.log(item);
+	// console.log(item);
 
 	const handleItemClick = (item) => {
 		setIsFiltered(true);
@@ -50,6 +50,7 @@ export const DrawerRight = () => {
 			setIsFiltered(false);
 		}
 	};
+
 	return (
 		<>
 			<SwipeableDrawer
