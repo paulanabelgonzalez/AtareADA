@@ -19,24 +19,34 @@ export const DrawerRight = () => {
 		allTasks,
 		isFiltered,
 		isRightDrawerOpen,
+		item,
 		selectedTasks,
 		setIsFiltered,
+		setItem,
 		setSelectedTasks,
 		toggleRightDrawer,
 	} = useContext(TaskContext);
 
 	console.log(selectedTasks);
 	console.log(isFiltered);
+	console.log(item);
+
 	const handleItemClick = (item) => {
 		setIsFiltered(true);
 		console.log(`${item}`);
 		if (item === "Todas las tareas") {
 			setSelectedTasks(allTasks);
+			setItem(item);
 		}
 		if (item === "Tareas realizadas") {
 			setSelectedTasks(allTasks.filter((task) => task.completed === true));
+			setItem(item);
 		}
 		if (item === "Tareas no realizadas") {
+			setSelectedTasks(allTasks.filter((task) => task.completed === false));
+			setItem(item);
+		}
+		if (item === "Ingresar Tareas") {
 			setIsFiltered(false);
 		}
 	};
@@ -74,6 +84,7 @@ export const DrawerRight = () => {
 
 					<List>
 						{[
+							"Ingresar Tareas",
 							"Todas las tareas",
 							"Tareas realizadas",
 							"Tareas no realizadas",

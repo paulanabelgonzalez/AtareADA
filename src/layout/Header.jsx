@@ -11,6 +11,7 @@ import logo from "../assets/ocupada.jpg";
 
 export const Header = () => {
 	const { toggleRightDrawer } = useContext(TaskContext);
+
 	return (
 		<AppBar
 			position="static"
@@ -19,9 +20,6 @@ export const Header = () => {
 				backgroundColor: "#ffe0dd",
 				boxShadow: "0 4px 10px rgba(0, 0, 0, 0.4)",
 				zIndex: "1",
-				display: "flex",
-				flexDirection: "row",
-				justifyContent: "space-between",
 				paddingInline: "8px",
 			}}
 		>
@@ -30,21 +28,25 @@ export const Header = () => {
 					width: "100%",
 					maxWidth: "1200px",
 					margin: "auto",
+					display: "flex",
+					justifyContent: "space-between",
 					paddingInline: 0,
 				}}
 			>
-				<Box
-					sx={{ mr: 2, display: "flex", width: { xs: "150px", md: "220px" } }}
-				>
-					<img src={logo} alt="mujer atareada" style={{ width: "100%" }} />
-				</Box>
+				<Box sx={{ display: "flex", alignItems: "center" }}>
+					<Box
+						sx={{ mr: 2, display: "flex", width: { xs: "150px", md: "220px" } }}
+					>
+						<img src={logo} alt="mujer atareada" style={{ width: "100%" }} />
+					</Box>
 
-				<Typography
-					sx={{ fontSize: { xs: "32px", md: "40px" }, color: "#9b3522" }}
-					component="h1"
-				>
-					AtareADA
-				</Typography>
+					<Typography
+						sx={{ fontSize: { xs: "32px", md: "40px" }, color: "#9b3522" }}
+						component="h1"
+					>
+						AtareADA
+					</Typography>
+				</Box>
 
 				<IconButton
 					onClick={toggleRightDrawer(true)}

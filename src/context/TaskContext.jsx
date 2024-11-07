@@ -12,11 +12,11 @@ export const TaskContext = createContext();
 export const TaskProvider = ({ children }) => {
 	const [allTasks, setAllTasks] = useState(getAllTasks());
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-	//2
 	const [isFiltered, setIsFiltered] = useState(false);
 	const [isRightDrawerOpen, setIsRightDrawerOpen] = useState(false);
-	const [showBubble, setShowBubble] = useState(false);
 	//1
+	const [item, setItem] = useState("");
+	const [showBubble, setShowBubble] = useState(false);
 	const [selectedTasks, setSelectedTasks] = useState(getAllTasks());
 	const [selectedTaskId, setSelectedTaskId] = useState(null);
 	const [tasks, setTasks] = useState(getAddedTasks());
@@ -67,7 +67,7 @@ export const TaskProvider = ({ children }) => {
 
 		setTimeout(() => {
 			setShowBubble(false);
-		}, 2000);
+		}, 3000);
 	};
 
 	const handleTaskCompleted = (selectedTaskId) => {
@@ -89,6 +89,12 @@ export const TaskProvider = ({ children }) => {
 				setTasks((prevTasks) =>
 					prevTasks.filter((task) => task.id !== selectedTaskId)
 				);
+				//
+				if (isFiltered && item === "Tareas no realizadas") {
+					setSelectedTasks((prevSelectedTasks) =>
+						prevSelectedTasks.filter((task) => task.id !== selectedTaskId)
+					);
+				}
 
 				handleBubbleShow();
 			}, 700);
@@ -139,10 +145,12 @@ export const TaskProvider = ({ children }) => {
 				isDrawerOpen,
 				isFiltered,
 				isRightDrawerOpen,
+				item,
 				selectedTasks,
 				selectedTaskId,
 				setIsDrawerOpen,
 				setIsFiltered,
+				setItem,
 				setSelectedTasks,
 				setSelectedTaskId,
 				showBubble,

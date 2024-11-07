@@ -12,6 +12,7 @@ import {
 
 import { FaCheck } from "react-icons/fa6";
 import { FaRegEdit } from "react-icons/fa";
+import { FaXmark } from "react-icons/fa6";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { TbPointFilled } from "react-icons/tb";
 
@@ -31,12 +32,12 @@ const createStyledTooltip = (bgColor) =>
 
 const CheckTooltip = createStyledTooltip("#4caf50");
 const CheckedTooltip = createStyledTooltip("#d32f2f");
-const EditTooltip = createStyledTooltip("#3434ff");
 const DeleteTooltip = createStyledTooltip("#d32f2f");
 const DescriptionTooltip = createStyledTooltip("grey");
+const EditTooltip = createStyledTooltip("#3434ff");
 
-export const Item = ({ task }) => {
-	const { handleDeleteTask, handleTaskCompleted, handleEditClick } =
+export const Item = ({ task, isEmpty }) => {
+	const { handleDeleteTask, handleTaskCompleted, handleEditClick, isFiltered } =
 		useContext(TaskContext);
 
 	return (
@@ -54,31 +55,49 @@ export const Item = ({ task }) => {
 						<TbPointFilled style={{ fontSize: "1.5rem", color: "#9b3522" }} />
 					</span>
 					<span
-						className={`task-text ${task.completed ? "completed" : ""}`}
-						style={{ marginInlineStart: "15px", color: "#615e5e" }}
+						className={`task-text ${
+							task.completed && !isFiltered ? "completed" : ""
+						}`}
+						style={{
+							marginInlineStart: "15px",
+							color: isEmpty ? "black" : "#615e5e",
+						}}
 					>
 						{task.task}
 					</span>
 				</Typography>
 
 				<Stack direction="row" spacing={{ xs: 0, md: 2 }}>
-					<CheckTooltip title="Marcar como realizada">
-						<IconButton
-							onClick={() => handleTaskCompleted(task.id)}
-							sx={{ color: "#4caf50" }}
-						>
-							<FaCheck style={{ fontSize: "20px" }} />
-						</IconButton>
-					</CheckTooltip>
+					{isFiltered && task.completed ? (
+						<CheckedTooltip title="No realizada">
+							<IconButton
+								onClick={() => handleTaskCompleted(task.id)}
+								sx={{ color: "#4caf50" }}
+							>
+								<FaXmark style={{ fontSize: "20px", color: "#d32f2f" }} />
+							</IconButton>
+						</CheckedTooltip>
+					) : (
+						<CheckTooltip title="Realizada">
+							<IconButton
+								onClick={() => handleTaskCompleted(task.id)}
+								sx={{ color: "#4caf50" }}
+							>
+								<FaCheck style={{ fontSize: "20px" }} />
+							</IconButton>
+						</CheckTooltip>
+					)}
 
-					<EditTooltip title="Editar">
-						<IconButton
-							onClick={() => handleEditClick(task.id)}
-							sx={{ color: "#3434ff" }}
-						>
-							<FaRegEdit style={{ fontSize: "20px" }} />
-						</IconButton>
-					</EditTooltip>
+					{!isFiltered && (
+						<EditTooltip title="Editar">
+							<IconButton
+								onClick={() => handleEditClick(task.id)}
+								sx={{ color: "#3434ff" }}
+							>
+								<FaRegEdit style={{ fontSize: "20px" }} />
+							</IconButton>
+						</EditTooltip>
+					)}
 
 					<DeleteTooltip title="Eliminar">
 						<IconButton color="error" onClick={() => handleDeleteTask(task.id)}>

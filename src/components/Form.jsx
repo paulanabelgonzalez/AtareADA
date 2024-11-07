@@ -9,10 +9,11 @@ import { Box, Button, TextField } from "@mui/material";
 import { TaskContext } from "../context/TaskContext";
 
 export const Form = () => {
-	const { addTask } = useContext(TaskContext);
+	const { addTask, setIsFiltered } = useContext(TaskContext);
 	const { handleSubmit, register, reset } = useForm();
 
 	const onSubmit = (data) => {
+		// setIsFiltered(false);
 		const newTask = {
 			id: uuidv4(),
 			task: data.task.charAt(0).toUpperCase() + data.task.slice(1),
