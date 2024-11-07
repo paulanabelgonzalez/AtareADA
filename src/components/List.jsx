@@ -83,7 +83,7 @@ export const List = () => {
 				}}
 			>
 				{hasTask ? (
-					<Item key="example-task" task={{ task: "No hay tareas" }} isEmpty />
+					<Item key="no-task" task={{ task: "No hay tareas" }} isEmpty />
 				) : (
 					displayedTasks.map((task) => <Item key={task.id} task={task} />)
 				)}

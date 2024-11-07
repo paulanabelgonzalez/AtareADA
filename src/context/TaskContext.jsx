@@ -34,6 +34,7 @@ export const TaskProvider = ({ children }) => {
 	};
 
 	const findByTaskId = (taskId) => tasks.find((task) => task.id === taskId);
+	const findId = (taskId) => allTasks.find((task) => task.id === taskId);
 
 	const updateTaskAttribute = (taskId, attribute, value) => {
 		const taskToUpdate = findByTaskId(taskId);
@@ -82,11 +83,16 @@ export const TaskProvider = ({ children }) => {
 				)
 			);
 
+			console.log("completa", updatedTasks);
+
 			setTimeout(() => {
 				setTasks((prevTasks) =>
 					prevTasks.filter((task) => task.id !== selectedTaskId)
 				);
-
+				if (isFiltered && item === "Todas las tareas") {
+					setSelectedTasks(updatedTasks);
+					setTasks(updatedTasks);
+				}
 				if (isFiltered && item === "Tareas no realizadas") {
 					setSelectedTasks((prevSelectedTasks) =>
 						prevSelectedTasks.filter((task) => task.id !== selectedTaskId)
@@ -95,6 +101,34 @@ export const TaskProvider = ({ children }) => {
 
 				handleBubbleShow();
 			}, 700);
+		}
+	};
+
+	const handleUnfinishedTask = (selectedTaskId) => {
+		const unfinishedTask = findId(selectedTaskId);
+
+		if (unfinishedTask) {
+			const updatedAllTasks = allTasks.map((task) =>
+				task.id === selectedTaskId ? { ...task, completed: false } : task
+			);
+			setAllTasks(updatedAllTasks);
+
+			if (isFiltered) {
+				setTasks(updatedAllTasks);
+			}
+
+			console.log("updatedAllTasks:", updatedAllTasks);
+
+			if (isFiltered && item === "Todas las tareas") {
+				setSelectedTasks(updatedAllTasks);
+				setTasks(updatedAllTasks);
+			}
+		}
+
+		if (isFiltered && item === "Tareas realizadas") {
+			setSelectedTasks((prevSelectedTasks) =>
+				prevSelectedTasks.filter((task) => task.id !== selectedTaskId)
+			);
 		}
 	};
 
@@ -134,8 +168,6 @@ export const TaskProvider = ({ children }) => {
 		}
 	};
 
-	// console.log(allTasks, selectedTasks);
-
 	const toggleDrawer = (newOpen) => () => {
 		setIsDrawerOpen(newOpen);
 	};
@@ -165,6 +197,7 @@ export const TaskProvider = ({ children }) => {
 				handleDeleteTask,
 				handleEditClick,
 				handleTaskCompleted,
+				handleUnfinishedTask,
 				isDrawerOpen,
 				isFiltered,
 				isRightDrawerOpen,

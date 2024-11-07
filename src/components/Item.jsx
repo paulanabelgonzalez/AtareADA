@@ -37,8 +37,13 @@ const DescriptionTooltip = createStyledTooltip("grey");
 const EditTooltip = createStyledTooltip("#3434ff");
 
 export const Item = ({ task, isEmpty }) => {
-	const { handleDeleteTask, handleTaskCompleted, handleEditClick, isFiltered } =
-		useContext(TaskContext);
+	const {
+		handleDeleteTask,
+		handleEditClick,
+		handleTaskCompleted,
+		handleUnfinishedTask,
+		isFiltered,
+	} = useContext(TaskContext);
 
 	return (
 		<>
@@ -71,7 +76,7 @@ export const Item = ({ task, isEmpty }) => {
 					{isFiltered && task.completed ? (
 						<CheckedTooltip title="No realizada">
 							<IconButton
-								onClick={() => handleTaskCompleted(task.id)}
+								onClick={() => handleUnfinishedTask(task.id)}
 								sx={{ color: "#4caf50" }}
 							>
 								<FaXmark style={{ fontSize: "20px", color: "#d32f2f" }} />
