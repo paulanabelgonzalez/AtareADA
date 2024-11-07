@@ -61,13 +61,14 @@ export const Form = () => {
 				variant="outlined"
 				type="submit"
 				sx={{
-					color: "#9B3522",
-					border: "2px solid #e79ea2",
+					color: "#c37c82",
+					border: "2px solid #c37c82",
 					fontWeight: 600,
 					transition: "0.5s ease",
 					"&:hover": {
 						backgroundColor: "#e79ea2",
 						color: "#ffe0dd",
+						border: "2px solid #e79ea2",
 					},
 				}}
 			>

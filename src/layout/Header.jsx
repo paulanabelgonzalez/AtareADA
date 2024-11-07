@@ -1,6 +1,13 @@
 import { useContext } from "react";
 
-import { AppBar, Box, IconButton, Toolbar, Typography } from "@mui/material";
+import {
+	AppBar,
+	Box,
+	Button,
+	IconButton,
+	Toolbar,
+	Typography,
+} from "@mui/material";
 
 import { IoMenu } from "react-icons/io5";
 
@@ -51,10 +58,34 @@ export const Header = () => {
 				<IconButton
 					onClick={toggleRightDrawer(true)}
 					aria-label="menu"
-					sx={{ marginInlineStart: "3px" }}
+					sx={{ marginInlineStart: "3px", display: { xs: "flex", sm: "none" } }}
 				>
-					<IoMenu style={{ fontSize: "30px", color: "#c37c82" }} />
+					<IoMenu
+						style={{
+							fontSize: "30px",
+							color: "#c37c82",
+						}}
+					/>
 				</IconButton>
+				<Button
+					onClick={toggleRightDrawer(true)}
+					sx={{
+						display: { xs: "none", sm: "flex" },
+						color: "#c37c82",
+						marginBlockStart: "7%",
+						fontWeight: 600,
+						border: "2px solid #c37c82",
+						transition: "0.5s ease",
+
+						"&:hover": {
+							border: "2px solid #e79ea2 ",
+							backgroundColor: "#e79ea2",
+							color: "#ffe0dd",
+						},
+					}}
+				>
+					Filtros
+				</Button>
 			</Toolbar>
 
 			<DrawerRight />
