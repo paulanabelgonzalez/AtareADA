@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 import {
 	getAllTasks,
@@ -7,13 +7,15 @@ import {
 	setTasksLS,
 } from "../LocalStorage";
 
+import { DrawerContext } from "./DrawerContext";
+
 export const TaskContext = createContext();
 
 export const TaskProvider = ({ children }) => {
+	const { setIsDrawerOpen } = useContext(DrawerContext);
+
 	const [allTasks, setAllTasks] = useState(getAllTasks());
-	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 	const [isFiltered, setIsFiltered] = useState(false);
-	const [isRightDrawerOpen, setIsRightDrawerOpen] = useState(false);
 	const [item, setItem] = useState("");
 	const [showBubble, setShowBubble] = useState(false);
 	const [selectedTasks, setSelectedTasks] = useState(getAllTasks());
@@ -168,23 +170,9 @@ export const TaskProvider = ({ children }) => {
 		}
 	};
 
-	const toggleDrawer = (newOpen) => () => {
-		setIsDrawerOpen(newOpen);
-	};
-
 	const handleEditClick = (taskId) => {
 		setSelectedTaskId(taskId);
 		setIsDrawerOpen(true);
-	};
-
-	const toggleRightDrawer = (open) => (event) => {
-		if (
-			event.type === "keydown" &&
-			(event.key === "Tab" || event.key === "Shift")
-		) {
-			return;
-		}
-		setIsRightDrawerOpen(open);
 	};
 
 	return (
@@ -198,21 +186,16 @@ export const TaskProvider = ({ children }) => {
 				handleEditClick,
 				handleTaskCompleted,
 				handleUnfinishedTask,
-				isDrawerOpen,
 				isFiltered,
-				isRightDrawerOpen,
 				item,
 				selectedTasks,
 				selectedTaskId,
-				setIsDrawerOpen,
 				setIsFiltered,
 				setItem,
 				setSelectedTasks,
 				setSelectedTaskId,
 				showBubble,
 				tasks,
-				toggleDrawer,
-				toggleRightDrawer,
 				updateTaskAttribute,
 			}}
 		>

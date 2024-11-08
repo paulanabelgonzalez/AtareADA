@@ -13,6 +13,7 @@ import {
 	Typography,
 } from "@mui/material";
 import { TaskContext } from "../context/TaskContext";
+import { DrawerContext } from "../context/DrawerContext";
 
 const drawerBleeding = 50;
 
@@ -34,12 +35,14 @@ const Puller = styled("div")({
 });
 
 export const DrawerBottom = () => {
+	const { toggleDrawer, isDrawerOpen, setIsDrawerOpen } =
+		useContext(DrawerContext);
 	const {
 		findByTaskId,
-		isDrawerOpen,
+		// isDrawerOpen,
 		selectedTaskId,
-		setIsDrawerOpen,
-		toggleDrawer,
+		// setIsDrawerOpen,
+		// toggleDrawer,
 		updateTaskAttribute,
 	} = useContext(TaskContext);
 	const { handleSubmit, register, setValue, reset } = useForm();

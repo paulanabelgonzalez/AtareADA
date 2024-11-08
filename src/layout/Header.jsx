@@ -11,13 +11,13 @@ import {
 
 import { IoMenu } from "react-icons/io5";
 
+import { DrawerContext } from "../context/DrawerContext";
 import { DrawerRight } from "../components/DrawerRight";
-import { TaskContext } from "../context/TaskContext";
 
 import logo from "../assets/ocupada.jpg";
 
 export const Header = () => {
-	const { toggleRightDrawer } = useContext(TaskContext);
+	const { toggleRightDrawer } = useContext(DrawerContext);
 
 	return (
 		<AppBar

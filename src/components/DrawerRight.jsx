@@ -13,18 +13,20 @@ import {
 // import { getAllTasks } from "../LocalStorage";
 
 import { TaskContext } from "../context/TaskContext";
+import { DrawerContext } from "../context/DrawerContext";
 
 export const DrawerRight = () => {
+	const { isRightDrawerOpen, toggleRightDrawer } = useContext(DrawerContext);
 	const {
 		allTasks,
 		isFiltered,
-		isRightDrawerOpen,
+		// isRightDrawerOpen,
 		item,
 		selectedTasks,
 		setIsFiltered,
 		setItem,
 		setSelectedTasks,
-		toggleRightDrawer,
+		// toggleRightDrawer,
 	} = useContext(TaskContext);
 
 	// console.log(selectedTasks);
