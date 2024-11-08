@@ -46,7 +46,6 @@ export const TaskProvider = ({ children }) => {
 			replaceTask(updatedTask);
 			console.log(updatedTask);
 		}
-		console.log(taskId, attribute, value);
 	};
 
 	const replaceTask = (updatedTask) => {
