@@ -18,6 +18,7 @@ export const TaskProvider = ({ children }) => {
 	const [isFiltered, setIsFiltered] = useState(false);
 	const [item, setItem] = useState("");
 	const [showBubble, setShowBubble] = useState(false);
+	const [bubbleMessage, setBubbleMessage] = useState("");
 	const [selectedTasks, setSelectedTasks] = useState(getAllTasks());
 	const [selectedTaskId, setSelectedTaskId] = useState(null);
 	const [tasks, setTasks] = useState(getAddedTasks());
@@ -49,6 +50,7 @@ export const TaskProvider = ({ children }) => {
 			replaceTask(updatedTask);
 			console.log(updatedTask);
 		}
+		console.log(taskId, attribute, value);
 	};
 
 	const replaceTask = (updatedTask) => {
@@ -62,7 +64,8 @@ export const TaskProvider = ({ children }) => {
 		);
 	};
 
-	const handleBubbleShow = () => {
+	const handleBubbleShow = (message) => {
+		setBubbleMessage(message);
 		setShowBubble(true);
 
 		setTimeout(() => {
@@ -100,8 +103,7 @@ export const TaskProvider = ({ children }) => {
 						prevSelectedTasks.filter((task) => task.id !== selectedTaskId)
 					);
 				}
-
-				handleBubbleShow();
+				handleBubbleShow("Realizada.");
 			}, 700);
 		}
 	};
@@ -132,6 +134,7 @@ export const TaskProvider = ({ children }) => {
 				prevSelectedTasks.filter((task) => task.id !== selectedTaskId)
 			);
 		}
+		handleBubbleShow("No Realizada.");
 	};
 
 	const handleDeleteTask = (taskId) => {
@@ -180,6 +183,7 @@ export const TaskProvider = ({ children }) => {
 			value={{
 				addTask,
 				allTasks,
+				bubbleMessage,
 				findByTaskId,
 				handleDeleteAll,
 				handleDeleteTask,
