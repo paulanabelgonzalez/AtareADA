@@ -17,6 +17,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { TbPointFilled } from "react-icons/tb";
 
 import { TaskContext } from "../context/TaskContext";
+import { DrawerContext } from "../context/DrawerContext";
 
 const createStyledTooltip = (bgColor) =>
 	styled(({ className, ...props }) => (
@@ -39,11 +40,17 @@ const EditTooltip = createStyledTooltip("#3434ff");
 export const Item = ({ task, isEmpty }) => {
 	const {
 		handleDeleteTask,
-		handleEditClick,
 		handleTaskCompleted,
 		handleUnfinishedTask,
 		isFiltered,
+		setSelectedTaskId,
 	} = useContext(TaskContext);
+	const { setIsDrawerOpen } = useContext(DrawerContext);
+
+	const handleEditClick = (taskId) => {
+		setSelectedTaskId(taskId);
+		setIsDrawerOpen(true);
+	};
 
 	return (
 		<>
@@ -60,7 +67,10 @@ export const Item = ({ task, isEmpty }) => {
 						<TbPointFilled style={{ fontSize: "1.5rem", color: "#9b3522" }} />
 					</span>
 					<span
-						className={`task-text ${
+						// className={`task-text ${
+						// 	task.completed && !isFiltered ? "completed" : ""
+						// }`}
+						className={`task ${task.completed && !isFiltered ? "text" : ""} ${
 							task.completed && !isFiltered ? "completed" : ""
 						}`}
 						style={{

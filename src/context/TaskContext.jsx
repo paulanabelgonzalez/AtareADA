@@ -7,13 +7,9 @@ import {
 	setTasksLS,
 } from "../LocalStorage";
 
-import { DrawerContext } from "./DrawerContext";
-
 export const TaskContext = createContext();
 
 export const TaskProvider = ({ children }) => {
-	const { setIsDrawerOpen } = useContext(DrawerContext);
-
 	const [allTasks, setAllTasks] = useState(getAllTasks());
 	const [isFiltered, setIsFiltered] = useState(false);
 	const [item, setItem] = useState("");
@@ -173,11 +169,6 @@ export const TaskProvider = ({ children }) => {
 		}
 	};
 
-	const handleEditClick = (taskId) => {
-		setSelectedTaskId(taskId);
-		setIsDrawerOpen(true);
-	};
-
 	return (
 		<TaskContext.Provider
 			value={{
@@ -187,7 +178,6 @@ export const TaskProvider = ({ children }) => {
 				findByTaskId,
 				handleDeleteAll,
 				handleDeleteTask,
-				handleEditClick,
 				handleTaskCompleted,
 				handleUnfinishedTask,
 				isFiltered,
