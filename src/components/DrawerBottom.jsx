@@ -1,6 +1,7 @@
 import { useContext, useEffect } from "react";
 
 import { useForm } from "react-hook-form";
+import { ErrorMessage } from "@hookform/error-message";
 
 import { Global } from "@emotion/react";
 
@@ -37,15 +38,14 @@ const Puller = styled("div")({
 export const DrawerBottom = () => {
 	const { toggleDrawer, isDrawerOpen, setIsDrawerOpen } =
 		useContext(DrawerContext);
+	const { findByTaskId, selectedTaskId, updateTaskAttribute } =
+		useContext(TaskContext);
 	const {
-		findByTaskId,
-		// isDrawerOpen,
-		selectedTaskId,
-		// setIsDrawerOpen,
-		// toggleDrawer,
-		updateTaskAttribute,
-	} = useContext(TaskContext);
-	const { handleSubmit, register, setValue, reset } = useForm();
+		formState: { errors },
+		handleSubmit,
+		register,
+		setValue,
+	} = useForm({ criteriaMode: "all" });
 
 	useEffect(() => {
 		if (selectedTaskId) {
@@ -115,29 +115,63 @@ export const DrawerBottom = () => {
 							padding: "20px",
 						}}
 					>
-						<TextField
-							type="text"
-							sx={{
-								minWidth: "50%",
-								"& input": {
-									textTransform: "capitalize",
-								},
-							}}
-							variant="outlined"
-							{...register("task")}
-							InputProps={{
-								sx: {
-									"&:focus-within .MuiOutlinedInput-notchedOutline": {
-										borderColor: "#e79ea2",
-										boxShadow: "0 0 10px #e79ea2",
+						<Box
+							sx={{ width: "100%", maxWidth: "500px", marginInline: "auto" }}
+						>
+							<TextField
+								type="text"
+								sx={{
+									minWidth: "100%",
+
+									"& input": {
+										textTransform: "capitalize",
 									},
-								},
-							}}
-						/>
+								}}
+								variant="outlined"
+								{...register("task", {
+									required: "Este campo es obligatorio.",
+									minLength: {
+										value: 6,
+										message:
+											"La tarea igresada debe tener como min. 4 caracteres.",
+									},
+									maxLength: {
+										value: 20,
+										message: "La tarea es muy larga, usa la descripción.",
+									},
+								})}
+								InputProps={{
+									sx: {
+										"&:focus-within .MuiOutlinedInput-notchedOutline": {
+											borderColor: "#e79ea2",
+											boxShadow: "0 0 10px #e79ea2",
+										},
+									},
+								}}
+							/>
+							<ErrorMessage
+								errors={errors}
+								name="task"
+								render={({ messages }) =>
+									messages &&
+									Object.entries(messages).map(([type, message]) => (
+										<p
+											style={{ color: "#d32f2f", textAlign: "center" }}
+											key={type}
+										>
+											{message}
+										</p>
+									))
+								}
+							/>
+						</Box>
 
 						<Button
 							type="submit"
 							sx={{
+								width: "100%",
+								maxWidth: "500px",
+								marginInline: "auto",
 								color: "#e79ea2",
 								fontWeight: 600,
 								transition: "0.5s ease",
