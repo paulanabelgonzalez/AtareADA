@@ -44,7 +44,6 @@ export const TaskProvider = ({ children }) => {
 				[attribute]: value,
 			};
 			replaceTask(updatedTask);
-			console.log(updatedTask);
 		}
 	};
 
@@ -83,8 +82,6 @@ export const TaskProvider = ({ children }) => {
 				)
 			);
 
-			console.log("completa", updatedTasks);
-
 			setTimeout(() => {
 				setTasks((prevTasks) =>
 					prevTasks.filter((task) => task.id !== selectedTaskId)
@@ -115,8 +112,6 @@ export const TaskProvider = ({ children }) => {
 			if (isFiltered) {
 				setTasks(updatedAllTasks);
 			}
-
-			console.log("updatedAllTasks:", updatedAllTasks);
 
 			if (isFiltered && item === "Todas las tareas") {
 				setSelectedTasks(updatedAllTasks);

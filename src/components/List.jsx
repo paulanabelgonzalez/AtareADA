@@ -8,7 +8,7 @@ import { TaskContext } from "../context/TaskContext";
 
 export const List = () => {
 	const {
-		bubbleMessage, // Obtén bubbleMessage del contexto
+		bubbleMessage,
 		handleDeleteAll,
 		isFiltered,
 		item,

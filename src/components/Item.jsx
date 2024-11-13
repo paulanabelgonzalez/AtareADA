@@ -16,8 +16,8 @@ import { FaXmark } from "react-icons/fa6";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { TbPointFilled } from "react-icons/tb";
 
-import { TaskContext } from "../context/TaskContext";
 import { DrawerContext } from "../context/DrawerContext";
+import { TaskContext } from "../context/TaskContext";
 
 const createStyledTooltip = (bgColor) =>
 	styled(({ className, ...props }) => (
@@ -67,9 +67,6 @@ export const Item = ({ task, isEmpty }) => {
 						<TbPointFilled style={{ fontSize: "1.5rem", color: "#9b3522" }} />
 					</span>
 					<span
-						// className={`task-text ${
-						// 	task.completed && !isFiltered ? "completed" : ""
-						// }`}
 						className={`task ${task.completed && !isFiltered ? "text" : ""} ${
 							task.completed && !isFiltered ? "completed" : ""
 						}`}

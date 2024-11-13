@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 
 import {
 	Box,
@@ -10,32 +10,16 @@ import {
 	Typography,
 } from "@mui/material";
 
-// import { getAllTasks } from "../LocalStorage";
-
 import { TaskContext } from "../context/TaskContext";
 import { DrawerContext } from "../context/DrawerContext";
 
 export const DrawerRight = () => {
 	const { isRightDrawerOpen, toggleRightDrawer } = useContext(DrawerContext);
-	const {
-		allTasks,
-		isFiltered,
-		// isRightDrawerOpen,
-		item,
-		selectedTasks,
-		setIsFiltered,
-		setItem,
-		setSelectedTasks,
-		// toggleRightDrawer,
-	} = useContext(TaskContext);
-
-	// console.log(selectedTasks);
-	// console.log(isFiltered);
-	// console.log(item);
+	const { allTasks, setIsFiltered, setItem, setSelectedTasks } =
+		useContext(TaskContext);
 
 	const handleItemClick = (item) => {
 		setIsFiltered(true);
-		console.log(`${item}`);
 		if (item === "Todas las tareas") {
 			setSelectedTasks(allTasks);
 			setItem(item);
@@ -87,10 +71,10 @@ export const DrawerRight = () => {
 
 					<List>
 						{[
-							"Ingresar Tareas",
 							"Todas las tareas",
 							"Tareas realizadas",
 							"Tareas no realizadas",
+							"Ingresar Tareas",
 						].map((text) => (
 							<ListItem key={text} disablePadding>
 								<ListItemButton onClick={() => handleItemClick(text)}>

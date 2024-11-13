@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import { Box, Button } from "@mui/material";
+import { Box } from "@mui/material";
 
 import { Form } from "../components/Form";
 import { List } from "../components/List";
@@ -15,7 +15,7 @@ export const Main = () => {
 		>
 			{!isFiltered ? (
 				<>
-					<Form />, <List />
+					<Form /> <List />
 				</>
 			) : (
 				<List />
@@ -23,4 +23,3 @@ export const Main = () => {
 		</Box>
 	);
 };
-//#ffe0dd

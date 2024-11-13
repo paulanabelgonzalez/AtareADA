@@ -58,7 +58,6 @@ export const DrawerBottom = () => {
 	}, [selectedTaskId, setValue]);
 
 	const onSubmit = (data) => {
-		console.log(data);
 		const capitalizedTask =
 			data.task.charAt(0).toUpperCase() + data.task.slice(1);
 		updateTaskAttribute(selectedTaskId, "task", capitalizedTask);
