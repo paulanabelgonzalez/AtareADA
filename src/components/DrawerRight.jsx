@@ -28,7 +28,7 @@ export const DrawerRight = () => {
 			setSelectedTasks(allTasks.filter((task) => task.completed === true));
 			setItem(item);
 		}
-		if (item === "Tareas no realizadas") {
+		if (item === "Tareas pendientes") {
 			setSelectedTasks(allTasks.filter((task) => task.completed === false));
 			setItem(item);
 		}
@@ -73,7 +73,7 @@ export const DrawerRight = () => {
 						{[
 							"Todas las tareas",
 							"Tareas realizadas",
-							"Tareas no realizadas",
+							"Tareas pendientes",
 							"Ingresar Tareas",
 						].map((text) => (
 							<ListItem key={text} disablePadding>

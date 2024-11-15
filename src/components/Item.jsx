@@ -81,7 +81,7 @@ export const Item = ({ task, isEmpty }) => {
 
 				<Stack direction="row" spacing={{ xs: 0, md: 2 }}>
 					{isFiltered && task.completed ? (
-						<CheckedTooltip title="No realizada">
+						<CheckedTooltip title="Pendiente">
 							<IconButton
 								onClick={() => handleUnfinishedTask(task.id)}
 								sx={{ color: "#4caf50" }}

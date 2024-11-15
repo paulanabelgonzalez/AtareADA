@@ -124,7 +124,7 @@ export const TaskProvider = ({ children }) => {
 				prevSelectedTasks.filter((task) => task.id !== selectedTaskId)
 			);
 		}
-		handleBubbleShow("No Realizada.");
+		handleBubbleShow("Pendiente.");
 	};
 
 	const handleDeleteTask = (taskId) => {
