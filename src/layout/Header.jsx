@@ -85,7 +85,7 @@ export const Header = () => {
 						},
 					}}
 				>
-					Filtros
+					Menu
 				</Button>
 			</Toolbar>
 
