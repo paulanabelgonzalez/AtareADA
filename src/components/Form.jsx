@@ -61,7 +61,7 @@ export const Form = () => {
 					{...register("task", {
 						required: "Este campo es obligatorio.",
 						minLength: {
-							value: 6,
+							value: 4,
 							message: "La tarea igresada debe tener como min. 4 caracteres.",
 						},
 						maxLength: {
