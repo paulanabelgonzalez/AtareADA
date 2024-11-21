@@ -48,8 +48,12 @@ export const Item = ({ task, isEmpty }) => {
 	const { setIsDrawerOpen } = useContext(DrawerContext);
 
 	const handleEditClick = (taskId) => {
-		setSelectedTaskId(taskId);
-		setIsDrawerOpen(true);
+		if (isEmpty) {
+			console.log("abre modal");
+		} else {
+			setSelectedTaskId(taskId);
+			setIsDrawerOpen(true);
+		}
 	};
 
 	return (
