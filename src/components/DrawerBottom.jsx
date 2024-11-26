@@ -16,7 +16,7 @@ import {
 import { TaskContext } from "../context/TaskContext";
 import { DrawerContext } from "../context/DrawerContext";
 
-const drawerBleeding = 50;
+const drawerBleeding = 55;
 
 const StyledBox = styled("div")({
 	backgroundColor: "#e79ea2",

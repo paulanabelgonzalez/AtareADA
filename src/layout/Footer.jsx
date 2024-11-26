@@ -13,6 +13,7 @@ export const Footer = () => {
 					alignItems: "center",
 					justifyContent: "center",
 					gap: "9px",
+					paddingBlock: "3px",
 				}}
 			>
 				<Typography variant="subtitle1" color="white" sx={{ pr: "15px" }}>

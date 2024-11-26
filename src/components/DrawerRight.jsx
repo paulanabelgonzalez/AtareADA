@@ -8,6 +8,7 @@ import {
 	ListItemButton,
 	ListItemText,
 	Typography,
+	Button,
 } from "@mui/material";
 
 import { TaskContext } from "../context/TaskContext";
@@ -15,11 +16,12 @@ import { DrawerContext } from "../context/DrawerContext";
 
 export const DrawerRight = () => {
 	const { isRightDrawerOpen, toggleRightDrawer } = useContext(DrawerContext);
-	const { allTasks, setIsFiltered, setItem, setSelectedTasks } =
+	const { allTasks, isFiltered, setIsFiltered, setItem, setSelectedTasks } =
 		useContext(TaskContext);
 
 	const handleItemClick = (item) => {
 		setIsFiltered(true);
+
 		if (item === "Todas las tareas") {
 			setSelectedTasks(allTasks);
 			setItem(item);
@@ -32,18 +34,18 @@ export const DrawerRight = () => {
 			setSelectedTasks(allTasks.filter((task) => task.completed === false));
 			setItem(item);
 		}
-		if (item === "Ingresar Tareas") {
-			setIsFiltered(false);
-		}
+		// if (item === "Ingresar Tareas") {
+		// 	setIsFiltered(false);
+		// }
 	};
-
+	console.log(isFiltered);
 	return (
 		<>
 			<SwipeableDrawer
 				anchor="right"
 				open={isRightDrawerOpen}
-				onClose={toggleRightDrawer(false)}
-				onOpen={toggleRightDrawer(true)}
+				onClose={() => toggleRightDrawer(false)}
+				onOpen={() => toggleRightDrawer(true)}
 				SwipeAreaProps={{ width: 0 }}
 				sx={{
 					"& .MuiDrawer-paper": {
@@ -62,11 +64,19 @@ export const DrawerRight = () => {
 					onClick={toggleRightDrawer(false)}
 					onKeyDown={toggleRightDrawer(false)}
 				>
+					<Button
+						onClick={() => {
+							setIsFiltered(false);
+						}}
+					>
+						Ingresar tarea
+					</Button>
+
 					<Typography
 						variant="h5"
 						sx={{ padding: "15px 15px 0px 10px", textDecoration: "underLine" }}
 					>
-						Buscar Por :
+						Buscar Por:
 					</Typography>
 
 					<List>
@@ -74,7 +84,7 @@ export const DrawerRight = () => {
 							"Todas las tareas",
 							"Tareas realizadas",
 							"Tareas pendientes",
-							"Ingresar Tareas",
+							// "Ingresar Tareas",
 						].map((text) => (
 							<ListItem key={text} disablePadding>
 								<ListItemButton onClick={() => handleItemClick(text)}>
