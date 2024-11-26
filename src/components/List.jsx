@@ -4,6 +4,7 @@ import { Box, Button, Typography } from "@mui/material";
 
 import { DrawerBottom } from "./DrawerBottom";
 import { Item } from "./Item";
+
 import { TaskContext } from "../context/TaskContext";
 
 export const List = () => {
@@ -14,6 +15,7 @@ export const List = () => {
 		item,
 		selectedTasks,
 		showBubble,
+		setIsFiltered,
 		tasks,
 	} = useContext(TaskContext);
 
@@ -29,16 +31,34 @@ export const List = () => {
 			}}
 		>
 			{isFiltered && (
-				<Typography
-					sx={{
-						fontSize: "20px",
-						color: "#9b3522",
-						paddingBlockStart: { xs: "10px", md: "30px" },
-						textAlign: "center",
-					}}
-				>
-					{item}
-				</Typography>
+				<>
+					<Button
+						sx={{
+							fontSize: ".7rem",
+							marginBlockStart: "10px",
+							color: "#c37c82",
+							border: "2px solid #c37c82",
+							transition: "0.5s ease",
+							"&:hover": {
+								backgroundColor: "#e79ea2",
+								color: "#ffe0dd",
+								border: "2px solid #e79ea2",
+							},
+						}}
+						onClick={() => {
+							setIsFiltered(false);
+							console.log("sin bucle");
+						}}
+					>
+						cerrar
+					</Button>
+
+					<Typography
+						sx={{ fontSize: "20px", color: "#9b3522", textAlign: "center" }}
+					>
+						{item}
+					</Typography>
+				</>
 			)}
 
 			<Box sx={{ textAlign: "end", paddingBlock: { xs: 1, sm: 2 } }}>

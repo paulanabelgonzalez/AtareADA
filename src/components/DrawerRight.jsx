@@ -11,8 +11,8 @@ import {
 	Button,
 } from "@mui/material";
 
-import { TaskContext } from "../context/TaskContext";
 import { DrawerContext } from "../context/DrawerContext";
+import { TaskContext } from "../context/TaskContext";
 
 export const DrawerRight = () => {
 	const { isRightDrawerOpen, toggleRightDrawer } = useContext(DrawerContext);
@@ -34,9 +34,6 @@ export const DrawerRight = () => {
 			setSelectedTasks(allTasks.filter((task) => task.completed === false));
 			setItem(item);
 		}
-		// if (item === "Ingresar Tareas") {
-		// 	setIsFiltered(false);
-		// }
 	};
 	console.log(isFiltered);
 	return (
@@ -44,8 +41,8 @@ export const DrawerRight = () => {
 			<SwipeableDrawer
 				anchor="right"
 				open={isRightDrawerOpen}
-				onClose={() => toggleRightDrawer(false)}
-				onOpen={() => toggleRightDrawer(true)}
+				onClose={toggleRightDrawer(false)}
+				onOpen={toggleRightDrawer(true)}
 				SwipeAreaProps={{ width: 0 }}
 				sx={{
 					"& .MuiDrawer-paper": {
@@ -64,14 +61,6 @@ export const DrawerRight = () => {
 					onClick={toggleRightDrawer(false)}
 					onKeyDown={toggleRightDrawer(false)}
 				>
-					<Button
-						onClick={() => {
-							setIsFiltered(false);
-						}}
-					>
-						Ingresar tarea
-					</Button>
-
 					<Typography
 						variant="h5"
 						sx={{ padding: "15px 15px 0px 10px", textDecoration: "underLine" }}
@@ -80,18 +69,15 @@ export const DrawerRight = () => {
 					</Typography>
 
 					<List>
-						{[
-							"Todas las tareas",
-							"Tareas realizadas",
-							"Tareas pendientes",
-							// "Ingresar Tareas",
-						].map((text) => (
-							<ListItem key={text} disablePadding>
-								<ListItemButton onClick={() => handleItemClick(text)}>
-									<ListItemText primary={text} />
-								</ListItemButton>
-							</ListItem>
-						))}
+						{["Todas las tareas", "Tareas realizadas", "Tareas pendientes"].map(
+							(text) => (
+								<ListItem key={text} disablePadding>
+									<ListItemButton onClick={() => handleItemClick(text)}>
+										<ListItemText primary={text} />
+									</ListItemButton>
+								</ListItem>
+							)
+						)}
 					</List>
 				</Box>
 			</SwipeableDrawer>
