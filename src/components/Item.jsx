@@ -37,7 +37,7 @@ const DeleteTooltip = createStyledTooltip("#d32f2f");
 const DescriptionTooltip = createStyledTooltip("grey");
 const EditTooltip = createStyledTooltip("#3434ff");
 
-export const Item = ({ task, isEmpty }) => {
+export const Item = ({ task }) => {
 	const {
 		handleDeleteTask,
 		handleTaskCompleted,
@@ -48,12 +48,8 @@ export const Item = ({ task, isEmpty }) => {
 	const { setIsDrawerOpen } = useContext(DrawerContext);
 
 	const handleEditClick = (taskId) => {
-		if (isEmpty) {
-			console.log("abre modal");
-		} else {
-			setSelectedTaskId(taskId);
-			setIsDrawerOpen(true);
-		}
+		setSelectedTaskId(taskId);
+		setIsDrawerOpen(true);
 	};
 
 	return (
@@ -76,7 +72,7 @@ export const Item = ({ task, isEmpty }) => {
 						}`}
 						style={{
 							marginInlineStart: "15px",
-							color: isEmpty ? "black" : "#615e5e",
+							color: "#615e5e",
 						}}
 					>
 						{task.task}

@@ -4,6 +4,7 @@ import { Box, Button, Typography } from "@mui/material";
 
 import { DrawerBottom } from "./DrawerBottom";
 import { Item } from "./Item";
+import { NoTasks } from "./NoTasks";
 
 import { TaskContext } from "../context/TaskContext";
 
@@ -25,9 +26,10 @@ export const List = () => {
 	return (
 		<Box
 			sx={{
-				width: "95%",
-				maxWidth: "1200px",
+				width: hasTask ? { xs: "350px", sm: "400px" } : "95%",
+				maxWidth: hasTask ? { xs: "350px", sm: "400px" } : "1200px",
 				m: "auto",
+				paddingBlockStart: hasTask ? { xs: "15px", sm: "30px" } : undefined,
 			}}
 		>
 			{isFiltered && (
@@ -54,32 +56,38 @@ export const List = () => {
 					</Button>
 
 					<Typography
-						sx={{ fontSize: "20px", color: "#9b3522", textAlign: "center" }}
+						sx={{
+							fontSize: "20px",
+							color: "#9b3522",
+							textAlign: "center",
+							paddingBlockEnd: "25px",
+						}}
 					>
 						{item}
 					</Typography>
 				</>
 			)}
-
-			<Box sx={{ textAlign: "end", paddingBlock: { xs: 1, sm: 2 } }}>
-				<Button
-					onClick={handleDeleteAll}
-					sx={{
-						padding: 1,
-						fontSize: ".6rem",
-						color: "#9B3522",
-						transition: "0.5s ease",
-						"&:hover": { backgroundColor: "#e79ea2", color: "#ffe0dd" },
-					}}
-				>
-					Borrar Lista
-				</Button>
-			</Box>
+			{!hasTask && (
+				<Box sx={{ textAlign: "end", paddingBlock: { xs: 1, sm: 2 } }}>
+					<Button
+						onClick={handleDeleteAll}
+						sx={{
+							padding: 1,
+							fontSize: ".6rem",
+							color: "#9B3522",
+							transition: "0.5s ease",
+							"&:hover": { backgroundColor: "#e79ea2", color: "#ffe0dd" },
+						}}
+					>
+						Borrar Lista
+					</Button>
+				</Box>
+			)}
 			<Box
 				sx={{
 					position: "sticky",
 					minWidth: { xs: "96%" },
-					width: { lg: "1200px" },
+					width: hasTask ? { xs: "350px", sm: "400px" } : { lg: "1200px" },
 					maxWidth: "1200px",
 					m: "auto",
 					p: "0px 10px",
@@ -104,7 +112,7 @@ export const List = () => {
 				}}
 			>
 				{hasTask ? (
-					<Item key="no-task" task={{ task: "No hay tareas" }} isEmpty />
+					<NoTasks />
 				) : (
 					displayedTasks.map((task) => <Item key={task.id} task={task} />)
 				)}

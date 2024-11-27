@@ -15,7 +15,7 @@ import { DrawerContext } from "../context/DrawerContext";
 
 import { DrawerRight } from "../components/DrawerRight";
 
-import logo from "../assets/ocupada.jpg";
+import logo from "../assets/logo.jpg";
 
 export const Header = () => {
 	const { toggleRightDrawer } = useContext(DrawerContext);
