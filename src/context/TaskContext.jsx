@@ -13,11 +13,19 @@ export const TaskProvider = ({ children }) => {
 	const [allTasks, setAllTasks] = useState(getAllTasks());
 	const [isFiltered, setIsFiltered] = useState(false);
 	const [item, setItem] = useState("");
-	const [showBubble, setShowBubble] = useState(false);
+	// const [open, setOpen] = useState(false);
 	const [bubbleMessage, setBubbleMessage] = useState("");
 	const [selectedTasks, setSelectedTasks] = useState(getAllTasks());
 	const [selectedTaskId, setSelectedTaskId] = useState(null);
+	const [showBubble, setShowBubble] = useState(false);
+	const [state, setState] = useState({
+		open: false,
+		vertical: "bottom",
+		horizontal: "center",
+	});
 	const [tasks, setTasks] = useState(getAddedTasks());
+
+	const { vertical, horizontal, open } = state;
 
 	useEffect(() => {
 		setTasksLS(tasks);
@@ -67,6 +75,10 @@ export const TaskProvider = ({ children }) => {
 		}, 3000);
 	};
 
+	const handleClick = () => {
+		setState({ ...state, open: true });
+	};
+
 	const handleTaskCompleted = (selectedTaskId) => {
 		const taskToComplete = findByTaskId(selectedTaskId);
 
@@ -81,6 +93,8 @@ export const TaskProvider = ({ children }) => {
 					task.id === selectedTaskId ? { ...task, completed: true } : task
 				)
 			);
+
+			handleClick();
 
 			setTimeout(() => {
 				setTasks((prevTasks) =>
@@ -99,6 +113,19 @@ export const TaskProvider = ({ children }) => {
 			}, 700);
 		}
 	};
+
+	// const handleClose = (reason) => {
+	// 	if (reason === "clickaway") {
+	// 		return;
+	// 	}
+
+	// 	setOpen(false);
+	// };
+
+	const handleClose = () => {
+		setState({ ...state, open: false });
+	};
+	console.log(state);
 
 	const handleUnfinishedTask = (selectedTaskId) => {
 		const unfinishedTask = findId(selectedTaskId);
@@ -170,12 +197,14 @@ export const TaskProvider = ({ children }) => {
 				allTasks,
 				bubbleMessage,
 				findByTaskId,
+				handleClose,
 				handleDeleteAll,
 				handleDeleteTask,
 				handleTaskCompleted,
 				handleUnfinishedTask,
 				isFiltered,
 				item,
+				open,
 				selectedTasks,
 				selectedTaskId,
 				setIsFiltered,
@@ -183,6 +212,7 @@ export const TaskProvider = ({ children }) => {
 				setSelectedTasks,
 				setSelectedTaskId,
 				showBubble,
+				state,
 				tasks,
 				updateTaskAttribute,
 			}}

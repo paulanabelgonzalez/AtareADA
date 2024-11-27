@@ -81,7 +81,7 @@ export const Item = ({ task }) => {
 
 				<Stack direction="row" spacing={{ xs: 0, md: 2 }}>
 					{isFiltered && task.completed ? (
-						<CheckedTooltip title="Pendiente">
+						<CheckedTooltip title="Marcar como pendiente">
 							<IconButton
 								onClick={() => handleUnfinishedTask(task.id)}
 								sx={{ color: "#4caf50" }}
@@ -90,7 +90,7 @@ export const Item = ({ task }) => {
 							</IconButton>
 						</CheckedTooltip>
 					) : (
-						<CheckTooltip title="Realizada">
+						<CheckTooltip title="Marcar como realizada">
 							<IconButton
 								onClick={() => handleTaskCompleted(task.id)}
 								sx={{ color: "#4caf50" }}
