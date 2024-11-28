@@ -6,6 +6,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
+
 import { TaskContext } from "../context/TaskContext";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -29,8 +30,7 @@ export const Modal = () => {
 			handleDeleteTask(id);
 		}
 	};
-	console.log(id);
-	console.log(name);
+
 	return (
 		<React.Fragment>
 			<Dialog
@@ -64,7 +64,7 @@ export const Modal = () => {
 				<DialogContent>
 					<DialogContentText>
 						Está seguro que quiere eliminar{" "}
-						<span style={{ fontWeight: 600 }}>{name}</span>?
+						<span style={{ fontWeight: 600, color: "#c37c82" }}>{name}</span>?
 					</DialogContentText>
 				</DialogContent>
 				<DialogActions>

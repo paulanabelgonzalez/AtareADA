@@ -35,7 +35,7 @@ export const DrawerRight = () => {
 			setItem(item);
 		}
 	};
-	console.log(isFiltered);
+
 	return (
 		<>
 			<SwipeableDrawer

@@ -33,7 +33,7 @@ const TaskProvider = ({ children }) => {
 		setDialogContent(content);
 		setOpenModal(true);
 	};
-	console.log(dialogContent);
+
 	const handleCloseModal = () => {
 		setDialogContent(null);
 		setOpenModal(false);
