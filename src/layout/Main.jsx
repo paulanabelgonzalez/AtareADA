@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 
 import { Box, Snackbar } from "@mui/material";
 
@@ -7,19 +7,8 @@ import { List } from "../components/List";
 import { TaskContext } from "../context/TaskContext";
 
 export const Main = () => {
-	const { handleClose, isFiltered, open, state } = useContext(TaskContext);
-	const { vertical, horizontal } = state;
-	// const handleClick = () => {
-	// 	setOpen(true);
-	// };
-
-	// const handleClose = (event, reason) => {
-	// 	if (reason === "clickaway") {
-	// 		return;
-	// 	}
-
-	// 	setOpen(false);
-	// };
+	const { handleClose, isFiltered, state } = useContext(TaskContext);
+	const { vertical, horizontal, open } = state;
 
 	return (
 		<Box
@@ -40,14 +29,6 @@ export const Main = () => {
 							sx: {
 								backgroundColor: "#c37c82",
 								color: "white",
-								// 						textShadow: `
-								// 	0 0 5px #ffffff,   /* Brillo suave */
-								// 	0 0 10px #ffffff,  /* Extensión del brillo */
-								// 	0 0 20px #ff69b4,  /* Brillo en rosa */
-								// 	0 0 30px #ff69b4,  /* Brillo más intenso */
-								// 	0 0 40px #ff1493,  /* Color más profundo */
-								// 	0 0 50px #ff1493
-								// `,
 								position: "relative",
 								top: "-40px",
 								boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.3)",

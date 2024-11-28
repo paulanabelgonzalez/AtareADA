@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 import {
 	getAllTasks,
@@ -9,11 +9,10 @@ import {
 
 export const TaskContext = createContext();
 
-export const TaskProvider = ({ children }) => {
+const TaskProvider = ({ children }) => {
 	const [allTasks, setAllTasks] = useState(getAllTasks());
 	const [isFiltered, setIsFiltered] = useState(false);
 	const [item, setItem] = useState("");
-	// const [open, setOpen] = useState(false);
 	const [bubbleMessage, setBubbleMessage] = useState("");
 	const [selectedTasks, setSelectedTasks] = useState(getAllTasks());
 	const [selectedTaskId, setSelectedTaskId] = useState(null);
@@ -100,32 +99,29 @@ export const TaskProvider = ({ children }) => {
 				setTasks((prevTasks) =>
 					prevTasks.filter((task) => task.id !== selectedTaskId)
 				);
-				if (isFiltered && item === "Todas las tareas") {
-					setSelectedTasks(updatedTasks);
-					setTasks(updatedTasks);
-				}
-				if (isFiltered && item === "Tareas no realizadas") {
-					setSelectedTasks((prevSelectedTasks) =>
-						prevSelectedTasks.filter((task) => task.id !== selectedTaskId)
-					);
+				if (isFiltered) {
+					if (item === "Todas las tareas") {
+						setSelectedTasks((prevSelectedTasks) =>
+							prevSelectedTasks.map((task) =>
+								task.id === selectedTaskId ? { ...task, completed: true } : task
+							)
+						);
+					}
+					if (item === "Tareas pendientes") {
+						setSelectedTasks((prevSelectedTasks) =>
+							prevSelectedTasks.filter((task) => task.id !== selectedTaskId)
+						);
+					}
 				}
 				handleBubbleShow("Realizada.");
 			}, 700);
 		}
 	};
-
-	// const handleClose = (reason) => {
-	// 	if (reason === "clickaway") {
-	// 		return;
-	// 	}
-
-	// 	setOpen(false);
-	// };
+	console.log(allTasks);
 
 	const handleClose = () => {
 		setState({ ...state, open: false });
 	};
-	console.log(state);
 
 	const handleUnfinishedTask = (selectedTaskId) => {
 		const unfinishedTask = findId(selectedTaskId);
@@ -204,7 +200,6 @@ export const TaskProvider = ({ children }) => {
 				handleUnfinishedTask,
 				isFiltered,
 				item,
-				open,
 				selectedTasks,
 				selectedTaskId,
 				setIsFiltered,
@@ -221,3 +216,5 @@ export const TaskProvider = ({ children }) => {
 		</TaskContext.Provider>
 	);
 };
+
+export default TaskProvider;

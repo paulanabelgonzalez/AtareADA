@@ -6,7 +6,7 @@ import "./index.css";
 import CssBaseline from "@mui/material/CssBaseline";
 
 import { DrawerProvider } from "./context/DrawerContext.jsx";
-import { TaskProvider } from "./context/TaskContext.jsx";
+import TaskProvider from "./context/TaskContext.jsx";
 
 import { App } from "./App.jsx";
 

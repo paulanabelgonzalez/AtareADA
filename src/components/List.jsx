@@ -111,7 +111,7 @@ export const List = () => {
 					},
 				}}
 			>
-				{hasTask ? (
+				{hasTask && !showBubble ? (
 					<NoTasks />
 				) : (
 					displayedTasks.map((task) => <Item key={task.id} task={task} />)
