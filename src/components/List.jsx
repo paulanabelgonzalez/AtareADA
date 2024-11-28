@@ -11,7 +11,7 @@ import { TaskContext } from "../context/TaskContext";
 export const List = () => {
 	const {
 		bubbleMessage,
-		handleDeleteAll,
+		handleOpenModal,
 		isFiltered,
 		item,
 		selectedTasks,
@@ -70,7 +70,12 @@ export const List = () => {
 			{!hasTask && (
 				<Box sx={{ textAlign: "end", paddingBlock: { xs: 1, sm: 2 } }}>
 					<Button
-						onClick={handleDeleteAll}
+						onClick={() =>
+							handleOpenModal({
+								id: null,
+								name: isFiltered ? `toda la lista de ${item}` : "toda la lista",
+							})
+						}
 						sx={{
 							padding: 1,
 							fontSize: ".6rem",

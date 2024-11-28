@@ -39,7 +39,7 @@ const EditTooltip = createStyledTooltip("#3434ff");
 
 export const Item = ({ task }) => {
 	const {
-		handleDeleteTask,
+		handleOpenModal,
 		handleTaskCompleted,
 		handleUnfinishedTask,
 		isFiltered,
@@ -112,7 +112,10 @@ export const Item = ({ task }) => {
 					)}
 
 					<DeleteTooltip title="Eliminar">
-						<IconButton color="error" onClick={() => handleDeleteTask(task.id)}>
+						<IconButton
+							color="error"
+							onClick={() => handleOpenModal({ id: task.id, name: task.task })}
+						>
 							<RiDeleteBin6Line style={{ fontSize: "20px" }} />
 						</IconButton>
 					</DeleteTooltip>

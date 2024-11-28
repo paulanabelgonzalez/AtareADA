@@ -4,6 +4,7 @@ import { Box, Snackbar } from "@mui/material";
 
 import { Form } from "../components/Form";
 import { List } from "../components/List";
+import { Modal } from "../components/Modal";
 import { TaskContext } from "../context/TaskContext";
 
 export const Main = () => {
@@ -35,11 +36,12 @@ export const Main = () => {
 								borderRadius: "8px",
 							},
 						}}
-					/>
+					/>{" "}
+					<Modal />
 				</>
 			) : (
 				<>
-					<List />
+					<List /> <Modal />
 				</>
 			)}
 		</Box>

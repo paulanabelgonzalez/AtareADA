@@ -11,9 +11,10 @@ export const TaskContext = createContext();
 
 const TaskProvider = ({ children }) => {
 	const [allTasks, setAllTasks] = useState(getAllTasks());
+	const [bubbleMessage, setBubbleMessage] = useState("");
 	const [isFiltered, setIsFiltered] = useState(false);
 	const [item, setItem] = useState("");
-	const [bubbleMessage, setBubbleMessage] = useState("");
+	const [openModal, setOpenModal] = useState(false);
 	const [selectedTasks, setSelectedTasks] = useState(getAllTasks());
 	const [selectedTaskId, setSelectedTaskId] = useState(null);
 	const [showBubble, setShowBubble] = useState(false);
@@ -25,6 +26,18 @@ const TaskProvider = ({ children }) => {
 	const [tasks, setTasks] = useState(getAddedTasks());
 
 	const { vertical, horizontal, open } = state;
+
+	const [dialogContent, setDialogContent] = useState(null);
+
+	const handleOpenModal = (content) => {
+		setDialogContent(content);
+		setOpenModal(true);
+	};
+	console.log(dialogContent);
+	const handleCloseModal = () => {
+		setDialogContent(null);
+		setOpenModal(false);
+	};
 
 	useEffect(() => {
 		setTasksLS(tasks);
@@ -117,7 +130,6 @@ const TaskProvider = ({ children }) => {
 			}, 700);
 		}
 	};
-	console.log(allTasks);
 
 	const handleClose = () => {
 		setState({ ...state, open: false });
@@ -161,6 +173,7 @@ const TaskProvider = ({ children }) => {
 				selectedTasks.filter((task) => task.id !== taskId)
 			);
 		}
+		handleCloseModal();
 	};
 
 	const handleDeleteAll = () => {
@@ -184,6 +197,7 @@ const TaskProvider = ({ children }) => {
 				setTasks([]);
 			}
 		}
+		handleCloseModal();
 	};
 
 	return (
@@ -192,14 +206,18 @@ const TaskProvider = ({ children }) => {
 				addTask,
 				allTasks,
 				bubbleMessage,
+				dialogContent,
 				findByTaskId,
+				handleOpenModal,
 				handleClose,
+				handleCloseModal,
 				handleDeleteAll,
 				handleDeleteTask,
 				handleTaskCompleted,
 				handleUnfinishedTask,
 				isFiltered,
 				item,
+				openModal,
 				selectedTasks,
 				selectedTaskId,
 				setIsFiltered,
