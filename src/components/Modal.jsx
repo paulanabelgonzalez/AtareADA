@@ -1,11 +1,14 @@
 import React, { useContext } from "react";
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
-import Slide from "@mui/material/Slide";
+
+import {
+	Button,
+	Dialog,
+	DialogActions,
+	DialogContent,
+	DialogContentText,
+	DialogTitle,
+	Slide,
+} from "@mui/material";
 
 import { TaskContext } from "../context/TaskContext";
 
@@ -39,7 +42,6 @@ export const Modal = () => {
 				keepMounted
 				onClose={handleCloseModal}
 				sx={{
-					// background: "linear-gradient(to bottom, #e79ea2, #ffffff)",
 					"& .MuiDialog-paper": {
 						background: "linear-gradient(to top, #e79ea2, #ffffff)",
 						borderRadius: "10px",
